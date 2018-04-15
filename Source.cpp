@@ -38,9 +38,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 	SetMouseDispFlag(TRUE);
 	SetDrawScreen(DX_SCREEN_BACK);
-	while (!ProcessMessage()) {
+	while (!ProcessMessage() && UpdateKey() == 0) {
 		ClearDrawScreen();
-		inputKey();
 		//Ç±Ç±Ç…èëÇ≠
 		GetMousePoint(mXp, mYp);
 		mX = *mXp;

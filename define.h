@@ -1,17 +1,19 @@
 #pragma once
 #include<DxLib.h>
 
-int key[256]; // 0:入力されていない 1:入力された瞬間 2:入力されている
-void inputKey() {
-	static char buf[256];
-	GetHitKeyStateAll(buf);
-	for (int i = 0; i < 256; i++) {
-		if (buf[i]) {
-			if (key[i] == 0) key[i] = 1;
-			else if (key[i] == 1) key[i] = 2;
+int key[256];
+int UpdateKey() {
+	char tmpKey[256]; // 現在のキーの入力状態を格納する
+	GetHitKeyStateAll(tmpKey); // 全てのキーの入力状態を得る
+	for (int i = 0; i<256; i++) {
+		if (tmpKey[i] != 0) { // i番のキーコードに対応するキーが押されていたら
+			key[i]++;     // 加算
 		}
-		else key[i] = 0;
+		else {              // 押されていなければ
+			key[i] = 0;   // 0にする
+		}
 	}
+	return 0;
 }
 
 
@@ -29,7 +31,7 @@ int mX = 0, mY = 0, *mXp = &mX, *mYp = &mY;
 
 int course = 0;	//シュートの方向
 int power = 3;	//シュートのパワー
-int speed = 0;	//シュートのスピード
+double speed = 0;	//シュートのスピード
 int cnt = 0;	//Game内で経過時間カウント
 
 double xBevel = 0, yBevel = 0;

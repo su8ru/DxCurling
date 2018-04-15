@@ -126,6 +126,8 @@ void Game() {
 	}
 	sX += 480;
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = 2;
+	speed = (double)power / 10;
+	if (speed < 0)	speed = 0;
 }
 
 void DrawGame() {
@@ -167,11 +169,11 @@ void MoveStoneD() {
 	if (key[KEY_INPUT_U] == 1 && setFlag)	moveFlag = true;
 	
 	if (moveFlag) {
-		yellowStone[0].x += xBevel / (6.0 - (double)power) * (double)speed;
-		yellowStone[0].y += yBevel / (6.0 - (double)power) * (double)speed;
+		yellowStone[0].x += xBevel * speed;
+		yellowStone[0].y += yBevel * speed;
 	}
 
-	if (cnt % 5 == 0) {
-		speed -= 0.25;
+	if (cnt % 6 == 0 && moveFlag) {
+		speed -= 0.1;
 	}
 }
