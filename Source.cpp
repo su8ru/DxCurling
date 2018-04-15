@@ -14,6 +14,7 @@
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetWindowText("DxCurling");
+	SetOutApplicationLogValidFlag(false);
 	ChangeWindowMode(TRUE);
 	SetGraphMode(1280, 720, 32);
 	DxLib_Init();
