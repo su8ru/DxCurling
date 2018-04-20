@@ -1,6 +1,9 @@
 #pragma once
 #include <DxLib.h>
+#include <math.h>
 #include "define.h"
+
+#define PI 3.141592653589793
 
 
 //èÌéû
@@ -74,8 +77,8 @@ void DrawControl() {
 }
 
 void DrawStone() {
-	for (int i = 0; i < 4; i++)	DrawGraph(yellowStone[i].x - 31, yellowStone[i].y - 32, stone_yellow, TRUE);
-	for (int i = 0; i < 4; i++)	DrawGraph(redStone[i].x - 31, redStone[i].y - 32, stone_red, TRUE);
+	for (int i = 0; i < 4; i++)	DrawGraph((int)yellowStone[i].x - 31, (int)yellowStone[i].y - 32, stone_yellow, TRUE);
+	for (int i = 0; i < 4; i++)	DrawGraph((int)redStone[i].x - 31, (int)redStone[i].y - 32, stone_red, TRUE);
 }
 
 void Game() {
@@ -126,8 +129,6 @@ void Game() {
 	}
 	sX += 480;
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = 2;
-	speed = (double)power / 10;
-	if (speed < 0)	speed = 0;
 }
 
 void DrawGame() {
@@ -141,6 +142,7 @@ void MoveOverStone() {
 			yellowStone[i].y = yellowStoneDefault[i].y;
 			setFlag = false;
 			moveFlag = false;
+			nowStonePos = 0;
 		}
 	}
 }
@@ -149,7 +151,7 @@ void MoveOverStone() {
 //Debug
 
 void DrawInfo() {
-	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "course:%d,power:%d", course, power);
+	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "course:%d,power:%d\nspeed:%f,nowStonePos:%f\nsetFlag:%s,moveFlag:%s", course, power, speed, nowStonePos, setFlag?"true":"false", moveFlag?"true":"false");
 }
 
 void DrawMousePos() {
@@ -157,7 +159,11 @@ void DrawMousePos() {
 }
 
 void DrawShootLine() {
-	DrawLineAA(660, 100, sX, sY, 0x000000, 4);
+	DrawLineAA((float)660, (float)100, (float)sX, (float)sY, 0x000000, (float)4);
+}
+
+void DrawShootLineRad() {
+	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(course * 5)) * (float)300, (float)100 + (float)cos(Rad(course * 5)) * (float)300, 0xff0000, 4);
 }
 
 void MoveStoneD() {
@@ -166,14 +172,29 @@ void MoveStoneD() {
 		yellowStone[0].y = 100;
 		setFlag = true;
 	}
-	if (key[KEY_INPUT_U] == 1 && setFlag)	moveFlag = true;
+	if (key[KEY_INPUT_U] == 1 && setFlag) {
+		moveFlag = true;
+		speed = (double)power / 1.25;
+		stoneMoveTime = cnt;
+	}
 	
 	if (moveFlag) {
-		yellowStone[0].x += xBevel * speed;
-		yellowStone[0].y += yBevel * speed;
+		nowStonePos += speed;
+		yellowStone[0].x = 660 + sin(Rad(course * 5)) * nowStonePos;
+		yellowStone[0].y = 100 + cos(Rad(course * 5)) * nowStonePos;
+	}
+	
+	if (cnt % 20 == 0 && moveFlag) {
+		speed *= 0.9;
 	}
 
-	if (cnt % 6 == 0 && moveFlag) {
-		speed -= 0.1;
+	if (speed < 0.2 && cnt - stoneMoveTime > 60) {
+		moveFlag = false;
+		nowStonePos = 0;
+		speed = 0;
 	}
+}
+
+double Rad(int deg) {
+	return (double)deg * PI / 180;
 }

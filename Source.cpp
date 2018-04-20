@@ -8,6 +8,7 @@
 
 #include <DxLib.h>
 #include <stdio.h>
+#include <math.h>
 #include "define.h"
 #include "function.h"
 #include "resource.h"
@@ -57,7 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Control();
 			DrawGame();
 			DrawInfo();
-			DrawShootLine();
+			//DrawShootLine();
+			DrawShootLineRad();
 			MoveStoneD();
 			DrawStone();
 			MoveOverStone();
