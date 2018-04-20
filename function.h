@@ -55,11 +55,11 @@ void Control() {
 	}
 
 	switch (course) {
-	case 4:
-		course = 3;
+	case 7:
+		course = 6;
 		break;
-	case -4:
-		course = -3;
+	case -7:
+		course = -6;
 		break;
 	}
 	switch (power) {
@@ -163,7 +163,7 @@ void DrawShootLine() {
 }
 
 void DrawShootLineRad() {
-	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(course * 5)) * (float)300, (float)100 + (float)cos(Rad(course * 5)) * (float)300, 0xff0000, 4);
+	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(course * 2.5)) * (float)300, (float)100 + (float)cos(Rad(course * 2.5)) * (float)300, 0xff0000, 4);
 }
 
 void MoveStoneD() {
@@ -180,8 +180,8 @@ void MoveStoneD() {
 	
 	if (moveFlag) {
 		nowStonePos += speed;
-		yellowStone[0].x = 660 + sin(Rad(course * 5)) * nowStonePos;
-		yellowStone[0].y = 100 + cos(Rad(course * 5)) * nowStonePos;
+		yellowStone[0].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
+		yellowStone[0].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
 	}
 	
 	if (cnt % 20 == 0 && moveFlag) {
