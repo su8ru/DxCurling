@@ -77,8 +77,10 @@ void DrawControl() {
 }
 
 void DrawStone() {
-	for (int i = 0; i < 4; i++)	DrawGraph((int)yellowStone[i].x - 31, (int)yellowStone[i].y - 32, stone_yellow, TRUE);
-	for (int i = 0; i < 4; i++)	DrawGraph((int)redStone[i].x - 31, (int)redStone[i].y - 32, stone_red, TRUE);
+	for (int i = 0; i < 4; i++) {
+		if (stoneInfo[i].isYellow)	DrawGraph((int)stoneInfo[i].x - 31, (int)stoneInfo[i].y - 32, stone_yellow, TRUE);
+		else						DrawGraph((int)stoneInfo[i].x - 31, (int)stoneInfo[i].y - 32, stone_red,    TRUE);
+	}
 }
 
 void Game() {
@@ -129,22 +131,151 @@ void Game() {
 	}
 	sX += 480;
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = 2;
+	
+	for (int l = 0; l < 8; l++) {
+		Shoot(l);
+		Acceleration(l);
+		StopLowStone(l);
+		StopOverStone(l);
+		PhysicStone(l);
+		if (turnEndFlag)	gamecnt++;
+	}
 }
 
 void DrawGame() {
 	DrawGraph(481, 0, sheet, FALSE);
 }
 
-void MoveOverStone() {
-	for (int i = 0; i < 4; i++) {
-		if (yellowStone[i].y > 740) {
-			yellowStone[i].x = yellowStoneDefault[i].x;
-			yellowStone[i].y = yellowStoneDefault[i].y;
+/*void MoveYellowStone(int i) {
+	if (key[KEY_INPUT_Q] == 1) {
+		yellowStone[i].x = 660;
+		yellowStone[i].y = 100;
+		setFlag = true;
+	}
+	if (key[KEY_INPUT_E] == 1 && setFlag) {
+		moveFlag = true;
+		speed = (double)power / 1.25;
+		stoneMoveTime = cnt;
+	}
+
+	if (moveFlag) {
+		nowStonePos += speed;
+		yellowStone[i].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
+		yellowStone[i].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
+	}
+
+	if (cnt % 20 == 0 && moveFlag) {
+		speed *= 0.9;
+	}
+
+	if (speed < 0.2 && cnt - stoneMoveTime > 60) {
+		moveFlag = false;
+		nowStonePos = 0;
+		speed = 0;
+		turnEndFlag = true;
+	}
+
+	if (yellowStone[i].y > 740) {
+		yellowStone[i].x = yellowStoneDefault[i].x;
+		yellowStone[i].y = yellowStoneDefault[i].y;
+		setFlag = false;
+		//moveFlag = false;
+		nowStonePos = 0;
+		turnEndFlag = true;
+	}
+}*/
+
+/*void MoveRedStone(int i) {
+	i--;
+	if (key[KEY_INPUT_Q] == 1) {
+		redStone[i].x = 660;
+		redStone[i].y = 100;
+		setFlag = true;
+	}
+	if (key[KEY_INPUT_E] == 1 && setFlag) {
+		moveFlag = true;
+		speed = (double)power / 1.25;
+		stoneMoveTime = cnt;
+	}
+
+	if (moveFlag) {
+		nowStonePos += speed;
+		redStone[i].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
+		redStone[i].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
+	}
+
+	if (cnt % 20 == 0 && moveFlag) {
+		speed *= 0.9;
+	}
+
+	if (speed < 0.2 && cnt - stoneMoveTime > 60) {
+		moveFlag = false;
+		nowStonePos = 0;
+		speed = 0;
+		turnEndFlag = true;
+	}
+
+	if (redStone[i].y > 740) {
+		redStone[i].x = redStoneDefault[i].x;
+		redStone[i].y = redStoneDefault[i].y;
+		setFlag = false;
+		moveFlag = false;
+		nowStonePos = 0;
+		turnEndFlag = true;
+	}
+}*/
+
+void Shoot(int i) {
+	if (key[KEY_INPUT_Q] == 1) {
+		stoneInfo[i].x = 660;
+		stoneInfo[i].y = 100;
+		setFlag = true;
+	}
+	if (key[KEY_INPUT_E] == 1 && setFlag) {
+		moveFlag = true;
+		stoneInfo[i].speed = (double)power / 1.25;
+		stoneMoveTime = cnt;
+	}
+}
+
+void Acceleration(int i) {
+	if (moveFlag) {
+		nowStonePos += stoneInfo[i].speed;
+		stoneInfo[i].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
+		stoneInfo[i].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
+	}
+
+	if (cnt % 20 == 0 && moveFlag) {
+		stoneInfo[i].speed *= 0.9;
+	}
+}
+
+void StopLowStone(int i) {
+	for (int l = 0; l < 8; l++) {
+		if (stoneInfo[i].speed < 0.2 && cnt - stoneMoveTime > 60) {
+			moveFlag = false;
+			nowStonePos = 0;
+			stoneInfo[i].speed = 0;
+			turnEndFlag = true;
+		}
+	}
+}
+
+void StopOverStone(int i) {
+	for (int l = 0; l < 8; l++) {
+		if (stoneInfo[i].y > 740) {
+			stoneInfo[i].x = stoneDefault[i].x;
+			stoneInfo[i].y = stoneDefault[i].y;
 			setFlag = false;
 			moveFlag = false;
 			nowStonePos = 0;
+			turnEndFlag = true;
 		}
 	}
+}
+
+void PhysicStone(int i) {
+
 }
 
 
@@ -166,13 +297,13 @@ void DrawShootLineRad() {
 	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(course * 2.5)) * (float)300, (float)100 + (float)cos(Rad(course * 2.5)) * (float)300, 0xff0000, 4);
 }
 
-void MoveStoneD() {
-	if (key[KEY_INPUT_Y] == 1) {
-		yellowStone[0].x = 660;
-		yellowStone[0].y = 100;
+/*void MoveStoneD(int cnt) {
+	if (key[KEY_INPUT_Q] == 1) {
+		yellowStone[cnt - 1].x = 660;
+		yellowStone[cnt - 1].y = 100;
 		setFlag = true;
 	}
-	if (key[KEY_INPUT_U] == 1 && setFlag) {
+	if (key[KEY_INPUT_E] == 1 && setFlag) {
 		moveFlag = true;
 		speed = (double)power / 1.25;
 		stoneMoveTime = cnt;
@@ -180,8 +311,8 @@ void MoveStoneD() {
 	
 	if (moveFlag) {
 		nowStonePos += speed;
-		yellowStone[0].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
-		yellowStone[0].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
+		yellowStone[cnt - 1].x = 660 + sin(Rad(course * 2.5)) * nowStonePos;
+		yellowStone[cnt - 1].y = 100 + cos(Rad(course * 2.5)) * nowStonePos;
 	}
 	
 	if (cnt % 20 == 0 && moveFlag) {
@@ -193,7 +324,7 @@ void MoveStoneD() {
 		nowStonePos = 0;
 		speed = 0;
 	}
-}
+}*/
 
 double Rad(int deg) {
 	return (double)deg * PI / 180;

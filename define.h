@@ -28,7 +28,7 @@ int gamecnt = 1; //ゲームの進行状況
 int azukiL32, azukiL24, azukiL16, azukiLB32, azukiLB24, azukiLB16, Cica32, Cica24, Cica16; //FontHandle
 int stone_red, stone_yellow, brush, sheet; //GraphHandle
 
-int mX = 0, mY = 0, *mXp = &mX, *mYp = &mY;
+int mX = 0, mY = 0;
 
 int course = 0;			//シュートの方向
 int power = 3;			//シュートのパワー
@@ -41,37 +41,35 @@ double nowStonePos = 0;		//stonePos * power = 進んだ距離
 double xBevel = 0, yBevel = 0;
 
 int sX = 180, sY = 540;
-bool setFlag = false, moveFlag = false;
+bool setFlag = false, moveFlag = false, turnEndFlag = false;
 
 struct stone {
 	double x, y, speed;
+	bool isYellow;
 };
 
-stone yellowStone[4]{
-	{ 804,36 ,0 },
-	{ 804,100,0 },
-	{ 804,164,0 },
-	{ 804,228,0 }
-};
-stone redStone[4]{
-	{ 516,36 ,0 },
-	{ 516,100,0 },
-	{ 516,164,0 },
-	{ 516,228,0 }
+stone stoneInfo[8]{
+	{ 804,36 ,0,true },
+	{ 516,36 ,0,false },
+	{ 804,100,0,true },
+	{ 516,100,0,false },
+	{ 804,164,0,true },
+	{ 516,164,0,false },
+	{ 804,228,0,true },
+	{ 516,228,0,false }
 };
 
-stone yellowStoneDefault[4]{
-	{ 804,36 ,0 },
-	{ 804,100,0 },
-	{ 804,164,0 },
-	{ 804,228,0 }
+stone stoneDefault[8]{
+	{ 804,36 ,0,true },
+	{ 516,36 ,0,false },
+	{ 804,100,0,true },
+	{ 516,100,0,false },
+	{ 804,164,0,true },
+	{ 516,164,0,false },
+	{ 804,228,0,true },
+	{ 516,228,0,false }
 };
-stone redStoneDefault[4]{
-	{ 516,36 ,0 },
-	{ 516,100,0 },
-	{ 516,164,0 },
-	{ 516,228,0 }
-};
+
 
 void DrawBrush();
 void Draw();
@@ -86,11 +84,19 @@ void DrawControl();
 void DrawStone();
 void Game();
 void DrawGame();
+//void MoveYellowStone(int);
+//void MoveRedStone(int);
+void Shoot(int);			//シュート
+void Acceleration(int);		//加減速
+void StopLowStone(int);		//ゆっくりすぎるstoneを止める
+void StopOverStone(int);	//はみでたstoneを止める
+void PhysicStone(int);		//その他物理演算
+
 
 void DrawInfo();
 void DrawMousePos();
 void DrawShootLine();
 void DrawShootLineRad();
-void MoveStoneD();
+//void MoveStoneD(int);
 
 double Rad(int);

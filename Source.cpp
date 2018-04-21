@@ -43,9 +43,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	while (!ProcessMessage() && UpdateKey() == 0) {
 		ClearDrawScreen();
 		//Ç±Ç±Ç…èëÇ≠
-		GetMousePoint(mXp, mYp);
-		mX = *mXp;
-		mY = *mYp;
+		GetMousePoint(&mX, &mY);
 		Draw();
 		DrawMousePos();
 		switch (gamemode) {
@@ -60,9 +58,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawInfo();
 			//DrawShootLine();
 			DrawShootLineRad();
-			MoveStoneD();
+			//MoveStoneD();
 			DrawStone();
-			MoveOverStone();
+			//MoveOverStone();
 			cnt++;
 			break;
 
