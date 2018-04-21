@@ -1,9 +1,9 @@
-/*
-ƒJ[ƒŠƒ“ƒO‚Á‚Û‚¢ƒ~ƒjƒQ[ƒ€
+ï»¿/*
+ã‚«ãƒ¼ãƒªãƒ³ã‚°ã£ã½ã„ãƒŸãƒ‹ã‚²ãƒ¼ãƒ 
 
-ˆêlƒ‚[ƒhi‘Šè‚ÍAIjA“ñlƒ‚[ƒh‚ª‚ ‚éB
+ä¸€äººãƒ¢ãƒ¼ãƒ‰ï¼ˆç›¸æ‰‹ã¯AIï¼‰ã€äºŒäººãƒ¢ãƒ¼ãƒ‰ãŒã‚ã‚‹ã€‚
 
-ì¬Fsubaru2003
+ä½œæˆï¼šsubaru2003
 */
 
 #include <DxLib.h>
@@ -13,6 +13,15 @@
 #include "function.h"
 #include "resource.h"
 
+//#define font1 "ã‚ãšããƒ•ã‚©ãƒ³ãƒˆL"
+//#define font2 "ã‚ãšããƒ•ã‚©ãƒ³ãƒˆLB"
+//#define font3 "Cica"
+
+#define font1 "MyricaM M"
+#define font2 "MyricaM M"
+#define font3 "MyricaM M"
+
+
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetWindowText("DxCurling");
 	SetOutApplicationLogValidFlag(false);
@@ -21,15 +30,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	DxLib_Init();
 	//CreateFontToHandle
 	{
-		azukiL32 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgL", 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiL24 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgL", 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiL16 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgL", 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB32 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgLB", 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB24 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgLB", 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB16 = CreateFontToHandle("‚ ‚¸‚«ƒtƒHƒ“ƒgLB", 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica32 = CreateFontToHandle("Cica", 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica24 = CreateFontToHandle("Cica", 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica16 = CreateFontToHandle("Cica", 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		
+		azukiL32 = CreateFontToHandle(font1, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiL24 = CreateFontToHandle(font1, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiL16 = CreateFontToHandle(font1, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiLB32 = CreateFontToHandle(font2, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiLB24 = CreateFontToHandle(font2, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiLB16 = CreateFontToHandle(font2, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		Cica32 = CreateFontToHandle(font3, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		Cica24 = CreateFontToHandle(font3, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		Cica16 = CreateFontToHandle(font3, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
 	}
 	//LoadGraph
 	{
@@ -40,11 +50,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 	SetMouseDispFlag(TRUE);
 	SetDrawScreen(DX_SCREEN_BACK);
+	initStones();
+	gamecnt = 0;
+	waitingForInput = true;
 	while (!ProcessMessage() && UpdateKey() == 0) {
 		ClearDrawScreen();
-		//‚±‚±‚É‘‚­
+		//ã“ã“ã«æ›¸ã
 		GetMousePoint(&mX, &mY);
-		Draw();
+		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE); //ç™½èƒŒæ™¯
 		DrawMousePos();
 		switch (gamemode) {
 		case 0:
@@ -52,22 +65,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case 1:
-			Game();
-			Control();
-			DrawGame();
-			DrawInfo();
-			//DrawShootLine();
-			DrawShootLineRad();
-			//MoveStoneD();
-			DrawStone();
-			//MoveOverStone();
+            Control();
+            DrawGame();
+            DrawInfo();
 			cnt++;
 			break;
 
 		case 2:
 			Pause();
 			break;
-		
+
 		case 3:
 			ED();
 			break;
