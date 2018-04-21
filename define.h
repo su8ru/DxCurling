@@ -3,7 +3,7 @@
 #include <math.h>
 
 int key[256];
-int UpdateKey() {
+void UpdateKey() {
 	char tmpKey[256]; // 現在のキーの入力状態を格納する
 	GetHitKeyStateAll(tmpKey); // 全てのキーの入力状態を得る
 	for (int i = 0; i<256; i++) {
@@ -14,7 +14,6 @@ int UpdateKey() {
 			key[i] = 0;   // 0にする
 		}
 	}
-	return 0;
 }
 
 
@@ -23,7 +22,7 @@ int timecnt = 0; //「何秒かに一回」をやるため
 
 int gamemode = 0; //0:OP 1:Game 2:Pause 3:ED
 
-int gamecnt = 1; //ゲームの進行状況
+int gamecnt = 0; //ゲームの進行状況
 
 int azukiL32, azukiL24, azukiL16, azukiLB32, azukiLB24, azukiLB16, Cica32, Cica24, Cica16; //FontHandle
 int stone_red, stone_yellow, brush, sheet; //GraphHandle
@@ -32,7 +31,7 @@ int mX = 0, mY = 0;
 
 int course = 0;			//シュートの方向
 int power = 3;			//シュートのパワー
-double speed = 1;		//シュートのスピード
+//double speed = 1;		//シュートのスピード
 int cnt = 0;			//Game内で経過時間カウント
 int stoneMoveTime = 0;	//stoneが動いている時間
 
