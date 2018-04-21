@@ -1,53 +1,65 @@
-#pragma once
+ï»¿#pragma once
 #include<DxLib.h>
 #include <math.h>
 
 int key[256];
 void UpdateKey() {
-	char tmpKey[256]; // Œ»İ‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğŠi”[‚·‚é
-	GetHitKeyStateAll(tmpKey); // ‘S‚Ä‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğ“¾‚é
+	char tmpKey[256]; // ç¾åœ¨ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ ¼ç´ã™ã‚‹
+	GetHitKeyStateAll(tmpKey); // å…¨ã¦ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’å¾—ã‚‹
 	for (int i = 0; i<256; i++) {
-		if (tmpKey[i] != 0) { // i”Ô‚ÌƒL[ƒR[ƒh‚É‘Î‰‚·‚éƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-			key[i]++;     // ‰ÁZ
+		if (tmpKey[i] != 0) { // iç•ªã®ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã™ã‚‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+			key[i]++;     // åŠ ç®—
 		}
-		else {              // ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î
-			key[i] = 0;   // 0‚É‚·‚é
+		else {              // æŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°
+			key[i] = 0;   // 0ã«ã™ã‚‹
 		}
 	}
 }
 
 
-//’è‹`
-int timecnt = 0; //u‰½•b‚©‚Éˆê‰ñv‚ğ‚â‚é‚½‚ß
+/*
+ã™ãã¡ã‚ƒã‚“ã®ã‚Œã£ãã‚‡ãŒãŸã“ã†ã–
+
+enum mode{
+    TITLE,GAME,PAUSE,ED
+};
+mode Mode=TITLE;
+ã‚ã‹ã‚Šã‚„ã™ã„ã§ã—ã‚‡?
+ */
+
+
+//å®šç¾©
+int timecnt = 0; //ã€Œä½•ç§’ã‹ã«ä¸€å›ã€ã‚’ã‚„ã‚‹ãŸã‚
 
 int gamemode = 0; //0:OP 1:Game 2:Pause 3:ED
 
-int gamecnt = 0; //ƒQ[ƒ€‚Ìisó‹µ
+int gamecnt = 0; //ã‚²ãƒ¼ãƒ ã®é€²è¡ŒçŠ¶æ³
 
 int azukiL32, azukiL24, azukiL16, azukiLB32, azukiLB24, azukiLB16, Cica32, Cica24, Cica16; //FontHandle
 int stone_red, stone_yellow, brush, sheet; //GraphHandle
 
 int mX = 0, mY = 0;
 
-int course = 0;			//ƒVƒ…[ƒg‚Ì•ûŒü
-int power = 3;			//ƒVƒ…[ƒg‚Ìƒpƒ[
-//double speed = 1;		//ƒVƒ…[ƒg‚ÌƒXƒs[ƒh
-int cnt = 0;			//Game“à‚ÅŒo‰ßŠÔƒJƒEƒ“ƒg
-int stoneMoveTime = 0;	//stone‚ª“®‚¢‚Ä‚¢‚éŠÔ
+int angle = 0;			//ã‚·ãƒ¥ãƒ¼ãƒˆã®æ–¹å‘
+double power = 3.0;			//ã‚·ãƒ¥ãƒ¼ãƒˆã®ãƒ‘ãƒ¯ãƒ¼
+double speed = 1;		//ã‚·ãƒ¥ãƒ¼ãƒˆã®ã‚¹ãƒ”ãƒ¼ãƒ‰
+int cnt = 0;			//Gameå†…ã§çµŒéæ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆ
 
-double nowStonePos = 0;		//stonePos * power = i‚ñ‚¾‹——£
+bool waitingForInput;
+
+double nowStonePos = 0;		//stonePos * power = é€²ã‚“ã è·é›¢
 
 double xBevel = 0, yBevel = 0;
 
 int sX = 180, sY = 540;
-bool setFlag = false, moveFlag = false, turnEndFlag = false;
+bool placed = false, moveFlag = false, turnEndFlag = false;
 
 struct stone {
-	double x, y, speed;
+	double x, y, vx=0,vy=0;
 	bool isYellow;
 };
 
-stone stoneInfo[8]{
+stone stones[8]{
 	{ 804,36 ,0,true },
 	{ 516,36 ,0,false },
 	{ 804,100,0,true },
@@ -69,6 +81,7 @@ stone stoneDefault[8]{
 	{ 516,228,0,false }
 };
 
+void initStones();
 
 void DrawBrush();
 void Draw();
@@ -79,18 +92,17 @@ void Pause();
 void ED();
 
 void Control();
-void DrawControl();
 void DrawStone();
-void Game();
 void DrawGame();
 //void MoveYellowStone(int);
 //void MoveRedStone(int);
-void Shoot(int);			//ƒVƒ…[ƒg
-void Acceleration(int);		//‰ÁŒ¸‘¬
-void StopLowStone(int);		//‚ä‚Á‚­‚è‚·‚¬‚éstone‚ğ~‚ß‚é
-void StopOverStone(int);	//‚Í‚İ‚Å‚½stone‚ğ~‚ß‚é
-void PhysicStone(int);		//‚»‚Ì‘¼•¨—‰‰Z
+void AddForce(int,double,double);	//ã‚¹ãƒˆãƒ¼ãƒ³ã«åŠ›ã‚’åŠ ãˆã‚‹
+void StopOverStone();	//ã¯ã¿ã§ãŸstoneã‚’æ­¢ã‚ã‚‹
+void StopSlowStone();
 
+void PhysicStone();		//ãã®ä»–ç‰©ç†æ¼”ç®—
+
+bool isMovingAnyStones();
 
 void DrawInfo();
 void DrawMousePos();
