@@ -80,7 +80,7 @@ stone stones[8];
 	{ 516,228,0,false }
 };*/
 
-void initStones();
+void InitStones();
 
 void DrawBrush();
 //void Draw();

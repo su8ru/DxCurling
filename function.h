@@ -4,6 +4,8 @@
 #include "define.h"
 
 #define PI 3.141592653589793
+const double k = 0.9;
+
 
 void putStone(int id,double posx,double posy,bool yellow) {
 	stones[id].x = posx;
@@ -13,7 +15,7 @@ void putStone(int id,double posx,double posy,bool yellow) {
 	stones[id].isYellow = yellow;
 }
 
-void initStones() {
+void InitStones() {
 	putStone(0, 804, 36, true);
 	putStone(1,516, 36, false);
 	putStone(2,804, 100, true);
@@ -50,7 +52,10 @@ void OP() {
 void Pause() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "ぽーずがめん");
 	if (key[KEY_INPUT_SPACE] == 1)	gamemode = game;
-	if (key[KEY_INPUT_RETURN] == 1)	gamemode = op;
+	if (key[KEY_INPUT_RETURN] == 1) {
+		gamemode = op;
+		InitStones();
+	}
 }
 
 void ED() {
@@ -60,7 +65,7 @@ void ED() {
 
 void AddForce(int id, double x, double y) {
 	stones[id].vx += x;
-	stones[id].vx += y;
+	stones[id].vy += y;
 }
 
 double Distance(double x, double y) {
@@ -160,16 +165,20 @@ void PhysicStone() {
         stones[i].vx *= 0.995;
         stones[i].vy *= 0.995;
     }
-
-	AddForce(gamecnt, stones[gamecnt].vx, stones[gamecnt].vy);
-	/*for (int i = 0; i < 8; i++) {
+	double theta, v, vTheta, vV;
+	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (i == j)	continue;
 			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) < 32 * 2) {
-				AddForce(i, ) // TODO: とちゅうなのぜf
+				double k = 0.9;
+				theta = atan2(stones[j].y - stones[i].y, stones[j].x - stones[i].x);
+				v = sqrt(stones[i].vx * stones[i].vx + stones[i].vy + stones[i].vy);
+				vTheta = atan2(stones[i].vy, stones[i].vx);
+				vV = v * cos(theta - vTheta);
+				AddForce(j, vV * k * cos(theta), vV * k * sin(theta));
 			}
 		}
-	}*/
+	}
     // TODO:衝突の処理はココらへん
 }
 

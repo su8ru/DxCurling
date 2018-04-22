@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 	SetMouseDispFlag(TRUE);
 	SetDrawScreen(DX_SCREEN_BACK);
-	initStones();
+	InitStones();
 	gamecnt = 0;
 	waitingForInput = true;
 	while (!ProcessMessage() && UpdateKey() == 0) {
@@ -66,6 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             Control();
             DrawGame();
             DrawInfo();
+			
 			cnt++;
 			break;
 
