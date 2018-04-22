@@ -43,14 +43,14 @@ void Error() {
 void OP() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "おーぷにんぐ");
 	DrawFormatStringToHandle(440, 400, 0x000000, azukiLB24, "SPACEキーを押してスタート");
-	if (key[KEY_INPUT_SPACE] == 1)	gamemode = 1;
+	if (key[KEY_INPUT_SPACE] == 1)	gamemode = game;
 
 }
 
 void Pause() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "ぽーずがめん");
-	if (key[KEY_INPUT_SPACE] == 1)	gamemode = 1;
-	if (key[KEY_INPUT_RETURN] == 1)	gamemode = 0;
+	if (key[KEY_INPUT_SPACE] == 1)	gamemode = game;
+	if (key[KEY_INPUT_RETURN] == 1)	gamemode = op;
 }
 
 void ED() {
@@ -61,6 +61,10 @@ void ED() {
 void AddForce(int id, double x, double y) {
 	stones[id].vx += x;
 	stones[id].vx += y;
+}
+
+double Distance(double x, double y) {
+	return sqrt(x * x + y * y);
 }
 
 //Game
@@ -80,7 +84,7 @@ void Control() {
     if(power>5)power=5;
     if(power<1)power=1;
 
-    if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = 2;
+    if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
 
 	if (waitingForInput && key[KEY_INPUT_Q] == 1) {
 		stones[gamecnt].x = 660;
@@ -139,8 +143,8 @@ void StopSlowStone() {
 void StopOverStone() {
 	for (int i = 0; i < 8; i++) {
 		if (stones[i].y > 740) {
-			stones[i].x = 10000;//はみ出たらもう消えろ
-			stones[i].y = 10000;
+			stones[i].x = 10000 + 10000 * i;	//はみ出たらもう消えろ
+			stones[i].y = 10000 + 10000 * i;
 			placed = false;
 			moveFlag = false;
 			nowStonePos = 0;
@@ -157,6 +161,15 @@ void PhysicStone() {
         stones[i].vy *= 0.995;
     }
 
+	AddForce(gamecnt, stones[gamecnt].vx, stones[gamecnt].vy);
+	/*for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (i == j)	continue;
+			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) < 32 * 2) {
+				AddForce(i, ) // TODO: とちゅうなのぜf
+			}
+		}
+	}*/
     // TODO:衝突の処理はココらへん
 }
 

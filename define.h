@@ -3,7 +3,7 @@
 #include <math.h>
 
 int key[256];
-void UpdateKey() {
+int UpdateKey() {
 	char tmpKey[256]; // 現在のキーの入力状態を格納する
 	GetHitKeyStateAll(tmpKey); // 全てのキーの入力状態を得る
 	for (int i = 0; i<256; i++) {
@@ -14,6 +14,7 @@ void UpdateKey() {
 			key[i] = 0;   // 0にする
 		}
 	}
+	return 0;
 }
 
 
@@ -25,13 +26,20 @@ enum mode{
 };
 mode Mode=TITLE;
 わかりやすいでしょ?
+
+-- メモ --
+structみたいな感じ
  */
 
 
 //定義
 int timecnt = 0; //「何秒かに一回」をやるため
 
-int gamemode = 0; //0:OP 1:Game 2:Pause 3:ED
+enum Mode {
+	op, game, pause, ed
+};
+
+Mode gamemode = op;	//op, game, pause, ed
 
 int gamecnt = 0; //ゲームの進行状況
 
@@ -59,18 +67,9 @@ struct stone {
 	bool isYellow;
 };
 
-stone stones[8]{
-	{ 804,36 ,0,true },
-	{ 516,36 ,0,false },
-	{ 804,100,0,true },
-	{ 516,100,0,false },
-	{ 804,164,0,true },
-	{ 516,164,0,false },
-	{ 804,228,0,true },
-	{ 516,228,0,false }
-};
+stone stones[8];
 
-stone stoneDefault[8]{
+/*stone stoneDefault[8]{
 	{ 804,36 ,0,true },
 	{ 516,36 ,0,false },
 	{ 804,100,0,true },
@@ -79,12 +78,12 @@ stone stoneDefault[8]{
 	{ 516,164,0,false },
 	{ 804,228,0,true },
 	{ 516,228,0,false }
-};
+};*/
 
 void initStones();
 
 void DrawBrush();
-void Draw();
+//void Draw();
 
 void Error();
 void OP();

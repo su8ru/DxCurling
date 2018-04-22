@@ -58,22 +58,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE); //白背景
 		DrawMousePos();
 		switch (gamemode) {
-		case 0:
+		case op:
 			OP();
 			break;
 
-		case 1:
+		case game:
             Control();
             DrawGame();
             DrawInfo();
 			cnt++;
 			break;
 
-		case 2:
+		case pause:
 			Pause();
 			break;
 
-		case 3:
+		case ed:
 			ED();
 			break;
 		default:
