@@ -88,14 +88,14 @@ void Control() {
 
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
 
-	printfDx("%d\n", isMovingAnyStones() ? 1 : 0);
+	DrawFormatStringToHandle(0, 96, 0x000000, Cica16, "動いてるstoneはありますか:%d\n", isMovingAnyStones() ? 1 : 0);
 	if (!waitingForInput && !isMovingAnyStones()) {
 		gamecnt++;
 		waitingForInput = true;
 	}
 	if (waitingForInput && key[KEY_INPUT_Q] == 1 && !placed) {
-		stones[gamecnt].x = 660;
-		stones[gamecnt].y = 100;
+		stones[gamecnt].x = 96;
+		stones[gamecnt].y = 240;
 		placed = true;
 	}
 	if (waitingForInput && key[KEY_INPUT_E] == 1 && placed) {
@@ -142,7 +142,7 @@ void StopSlowStone() {
 
 void StopOverStone() {
 	for (int i = 0; i < 8; i++) {
-		if (stones[i].y > 754) {
+		if (stones[i].y > 1312) {
 			stones[i].x = 10000 + 10000 * i;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
@@ -169,8 +169,8 @@ void PhysicStone() {
 				vt = atan2(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vx);
 				vV = v * cos(t - vt);
 
-				DrawLine(stones[i].x, stones[i].y, stones[i].x + vV * k * cos(t), stones[i].y + vV * k * sin(t), 0xff);
-				DrawLine(stones[j].x, stones[j].y, stones[j].x - vV * k * cos(t), stones[j].y - vV * k * sin(t), 0xff);
+				//DrawLine(stones[i].x, stones[i].y, stones[i].x + vV * k * cos(t), stones[i].y + vV * k * sin(t), 0xff);
+				//DrawLine(stones[j].x, stones[j].y, stones[j].x - vV * k * cos(t), stones[j].y - vV * k * sin(t), 0xff);
 
 				AddForce(j, vV * k * cos(t), vV * k * sin(t));
 				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
