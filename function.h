@@ -15,14 +15,14 @@ void putStone(int id, double posx, double posy, bool yellow) {
 }
 
 void InitStones() {
-	putStone(0, 804, 36, true);
-	putStone(1, 516, 36, false);
-	putStone(2, 804, 100, true);
-	putStone(3, 516, 100, false);
-	putStone(4, 804, 164, true);
-	putStone(5, 516, 164, false);
-	putStone(6, 804, 228, true);
-	putStone(7, 516, 228, false);
+	putStone(0, 36,  156, true);
+	putStone(1, 36,  564, false);
+	putStone(2, 100, 156, true);
+	putStone(3, 100, 564, false);
+	putStone(4, 164, 156, true);
+	putStone(5, 164, 564, false);
+	putStone(6, 228, 156, true);
+	putStone(7, 228, 564, false);
 }
 
 
@@ -113,8 +113,8 @@ void Control() {
 
 void DrawStone() {
 	for (int i = 0; i < 8; i++) {
-		if (stones[i].isYellow)	DrawGraph((int)stones[i].x - 31, (int)stones[i].y - 32, stone_yellow, TRUE);
-		else					DrawGraph((int)stones[i].x - 31, (int)stones[i].y - 32, stone_red, TRUE);
+		if (stones[i].isYellow)	DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_yellow, TRUE);
+		else					DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_red, TRUE);
 	}
 }
 
