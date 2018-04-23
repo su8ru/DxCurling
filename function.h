@@ -4,10 +4,9 @@
 #include "define.h"
 
 #define PI 3.141592653589793
-const double k = 0.9;
 
 
-void putStone(int id,double posx,double posy,bool yellow) {
+void putStone(int id, double posx, double posy, bool yellow) {
 	stones[id].x = posx;
 	stones[id].y = posy;
 	stones[id].vx = 0;
@@ -17,15 +16,14 @@ void putStone(int id,double posx,double posy,bool yellow) {
 
 void InitStones() {
 	putStone(0, 804, 36, true);
-	putStone(1,516, 36, false);
-	putStone(2,804, 100, true);
-	putStone(3,516,100,false);
-	putStone(4,804,164,true);
-	putStone(5,516,164,false);
-	putStone(6,804,228,true);
-	putStone(7,516,228,false);
+	putStone(1, 516, 36, false);
+	putStone(2, 804, 100, true);
+	putStone(3, 516, 100, false);
+	putStone(4, 804, 164, true);
+	putStone(5, 516, 164, false);
+	putStone(6, 804, 228, true);
+	putStone(7, 516, 228, false);
 }
-
 
 
 //常時
@@ -76,39 +74,37 @@ double Distance(double x, double y) {
 
 
 void Control() {
-	if (!moveFlag) {
-		if (key[KEY_INPUT_A])		angle--;
-		else if (key[KEY_INPUT_D])	angle++;
+	if (key[KEY_INPUT_A])		angle--;
+	else if (key[KEY_INPUT_D])	angle++;
 
-		else if (key[KEY_INPUT_S] == 1) power--;
-		else if (key[KEY_INPUT_W] == 1) power++;
+	else if (key[KEY_INPUT_S] == 1) power--;
+	else if (key[KEY_INPUT_W] == 1) power++;
+
+	if (angle<-30)angle = -30;
+	if (angle>30)angle = 30;
+	if (power>5)power = 5;
+	if (power<1)power = 1;
+
+	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
+
+	printfDx("%d\n", isMovingAnyStones() ? 1 : 0);
+	if (!waitingForInput && !isMovingAnyStones()) {
+		gamecnt++;
+		waitingForInput = true;
 	}
-
-	if(angle<-30)angle=-30;
-    if(angle>30)angle=30;
-    if(power>5)power=5;
-    if(power<1)power=1;
-
-    if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
-
-	if (waitingForInput && key[KEY_INPUT_Q] == 1) {
+	if (waitingForInput && key[KEY_INPUT_Q] == 1 && !placed) {
 		stones[gamecnt].x = 660;
 		stones[gamecnt].y = 100;
 		placed = true;
-		waitingForInput = true;
 	}
 	if (waitingForInput && key[KEY_INPUT_E] == 1 && placed) {
-		moveFlag = true;
 		placed = false;
-        stones[gamecnt].vx = power*sin(Rad(angle));
-        stones[gamecnt].vy = power*cos(Rad(angle));
+		stones[gamecnt].vx = power * sin(Rad(angle));
+		stones[gamecnt].vy = power * cos(Rad(angle));
 		waitingForInput = false;
 	}
-    if (!waitingForInput && !isMovingAnyStones()){
-        gamecnt++;
-		waitingForInput = true;
-    }
-    PhysicStone();
+
+	PhysicStone();
 	StopSlowStone();
 	StopOverStone();
 }
@@ -117,17 +113,17 @@ void Control() {
 void DrawStone() {
 	for (int i = 0; i < 8; i++) {
 		if (stones[i].isYellow)	DrawGraph((int)stones[i].x - 31, (int)stones[i].y - 32, stone_yellow, TRUE);
-		else					DrawGraph((int)stones[i].x - 31, (int)stones[i].y - 32, stone_red,    TRUE);
+		else					DrawGraph((int)stones[i].x - 31, (int)stones[i].y - 32, stone_red, TRUE);
 	}
 }
 
 
 void DrawGame() {
 	DrawGraph(481, 0, sheet, FALSE);
-    DrawShootLineRad();
-    //MoveStoneD();
-    DrawStone();
-    //MoveOverStone();
+	DrawShootLineRad();
+	//MoveStoneD();
+	DrawStone();
+	//MoveOverStone();
 
 }
 
@@ -136,55 +132,52 @@ void DrawGame() {
 void StopSlowStone() {
 	for (int i = 0; i < 8; i++) {
 		if (stones[i].vx < 0.1 && stones[i].vy < 0.1) {
-			moveFlag = false;
 			nowStonePos = 0;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
-			turnEndFlag = true;
 		}
 	}
 }
 
 void StopOverStone() {
 	for (int i = 0; i < 8; i++) {
-		if (stones[i].y > 740) {
-			stones[i].x = 10000 + 10000 * i;	//はみ出たらもう消えろ
-			stones[i].y = 10000 + 10000 * i;
-			placed = false;
-			moveFlag = false;
+		if (stones[i].y > 754) {
+			stones[i].x = 10000 + 10000 * i;
+			stones[i].vx = 0;
+			stones[i].vy = 0;
 			nowStonePos = 0;
-			turnEndFlag = true;
 		}
 	}
 }
 
 void PhysicStone() {
-    for(int i=0;i<8;i++){
-        stones[i].x+=stones[i].vx;
-        stones[i].y+=stones[i].vy;
-        stones[i].vx *= 0.995;
-        stones[i].vy *= 0.995;
-    }
-	double theta, v, vTheta, vV;
+	for (int i = 0;i<8;i++) {
+		stones[i].x += stones[i].vx;
+		stones[i].y += stones[i].vy;
+		stones[i].vx *= 0.995;
+		stones[i].vy *= 0.995;
+	}
+	double k = 0.9;
+	double t, v, vt, vV;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (i == j)	continue;
-			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) < 32 * 2) {
-				double k = 0.9;
-				theta = atan2(stones[j].y - stones[i].y, stones[j].x - stones[i].x);
-				v = sqrt(stones[i].vx * stones[i].vx + stones[i].vy + stones[i].vy);
-				vTheta = atan2(stones[i].vy, stones[i].vx);
-				vV = v * cos(theta - vTheta);
-				AddForce(j, vV * k * cos(theta), vV * k * sin(theta));
+			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) < 64) {
+				t = atan2(stones[j].y - stones[i].y, stones[j].x - stones[i].x);
+				v = Distance(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vx);
+				vt = atan2(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vx);
+				vV = v * cos(t - vt);
+				AddForce(j, vV * k * cos(t), vV * k * sin(t));
+				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
 			}
 		}
 	}
-    // TODO:衝突の処理はココらへん
+	// TODO:衝突の処理はココらへん
 }
 
 bool isMovingAnyStones() {
 	for (int i = 0;i < 8;i++) {
-		if (stones[i].vx != 0 && stones[i].vy != 0) {
+		if (stones[i].vx != 0 || stones[i].vy != 0) {
 			return true;
 		}
 	}
@@ -195,7 +188,7 @@ bool isMovingAnyStones() {
 //Debug
 
 void DrawInfo() {
-	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "course:%d°,power:%d\nspeed:%f,nowStonePos:%f\nplaced:%s,moveFlag:%s", angle, power, speed, nowStonePos, placed?"true":"false", moveFlag?"true":"false");
+	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "angle:%d\nplaced:%d\nturn:%d\ninput_ok:%d\n", angle, placed ? 1 : 0, gamecnt, waitingForInput ? 1 : 0);
 }
 
 void DrawMousePos() {
@@ -207,7 +200,7 @@ void DrawShootLine() {
 }
 
 void DrawShootLineRad() {
-	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(angle)) * (float)power*100, (float)100 + (float)cos(Rad(angle)) * (float)power*100, 0xff0000, 4);
+	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(angle)) * (float)power * 100, (float)100 + (float)cos(Rad(angle)) * (float)power * 100, 0x00ff00, 4);
 }
 
 
