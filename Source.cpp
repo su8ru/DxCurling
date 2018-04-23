@@ -11,13 +11,13 @@
 #include "function.h"
 #include "resource.h"
 
-//#define font1 "あずきフォントL"
-//#define font2 "あずきフォントLB"
-//#define font3 "Cica"
+#define font1 "あずきフォントL"
+#define font2 "あずきフォントLB"
+#define font3 "Cica"
 
-#define font1 "MyricaM M"
-#define font2 "MyricaM M"
-#define font3 "MyricaM M"
+//#define font1 "MyricaM M"
+//#define font2 "MyricaM M"
+//#define font3 "MyricaM M"
 
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -63,9 +63,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case game:
-            Control();
+            //Control();
             DrawGame();
             DrawInfo();
+			Control();
 			
 			cnt++;
 			break;

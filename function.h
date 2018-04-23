@@ -119,7 +119,7 @@ void DrawStone() {
 
 
 void DrawGame() {
-	DrawGraph(481, 0, sheet, FALSE);
+	DrawGraph(0, 121, sheet, FALSE);
 	DrawShootLineRad();
 	//MoveStoneD();
 	DrawStone();
@@ -167,6 +167,10 @@ void PhysicStone() {
 				v = Distance(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vx);
 				vt = atan2(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vx);
 				vV = v * cos(t - vt);
+
+				DrawLine(stones[i].x, stones[i].y, stones[i].x + vV * k * cos(t), stones[i].y + vV * k * sin(t), 0xff);
+				DrawLine(stones[j].x, stones[j].y, stones[j].x - vV * k * cos(t), stones[j].y - vV * k * sin(t), 0xff);
+
 				AddForce(j, vV * k * cos(t), vV * k * sin(t));
 				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
 			}
