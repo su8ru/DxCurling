@@ -52,6 +52,7 @@ void Pause() {
 	if (key[KEY_INPUT_SPACE] == 1)	gamemode = game;
 	if (key[KEY_INPUT_RETURN] == 1) {
 		gamemode = op;
+		gamecnt = 0;
 		InitStones();
 	}
 }
