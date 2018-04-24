@@ -14,7 +14,7 @@
    viewBox="0 0 16.933333 16.933334"
    version="1.1"
    id="svg8"
-   inkscape:export-filename="S:\main\git\CurlingGame\icon.png"
+   inkscape:export-filename="S:\main\git\CurlingGame\pic\stone_red.png"
    inkscape:export-xdpi="48"
    inkscape:export-ydpi="48"
    inkscape:version="0.92.1 r15371"
@@ -29,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568543"
-     inkscape:cx="24.184006"
-     inkscape:cy="25.910851"
+     inkscape:cx="68.217519"
+     inkscape:cy="56.645095"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="g844"
      showgrid="true"
      units="px"
      inkscape:snap-bbox="true"
@@ -81,7 +81,7 @@
      inkscape:groupmode="layer"
      id="g853"
      transform="translate(0,-280.06664)"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <ellipse
        style="fill:#a1a1a1;fill-opacity:1;stroke:none;stroke-width:4.23333216;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -111,13 +111,15 @@
        cx="8.4666662" />
     <path
        style="fill:#ffc000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 7.6729169,288.53331 c 0,0 -6e-7,-0.79375 0.7937497,-0.79375 0.7937503,0 0.7937503,0.79375 0.7937503,0.79375 l -10e-8,3.96875 c 0,0 10e-8,0.79375 -0.7937501,0.79375 -0.7937499,0 -0.79375,-0.79375 -0.79375,-0.79375 z"
+       d="m 8.4663254,287.73987 c 0,0 0.79375,-10e-6 0.79375,0.79374 0,0.79376 -0.79375,0.79376 -0.79375,0.79376 l -3.96875,-10e-6 c 0,0 -0.79375,10e-6 -0.79375,-0.79375 0,-0.79375 0.79375,-0.79375 0.79375,-0.79375 z"
        id="path834"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csccscc" />
+       sodipodi:nodetypes="csccscc"
+       inkscape:transform-center-x="1.9843923"
+       inkscape:transform-center-y="0.00032224142" />
   </g>
   <g
-     style="display:none"
+     style="display:inline"
      transform="translate(0,-280.06664)"
      id="g844"
      inkscape:groupmode="layer"
@@ -152,14 +154,17 @@
        sodipodi:nodetypes="csccscc"
        inkscape:connector-curvature="0"
        id="path842"
-       d="m 7.6729169,288.53331 c 0,0 -6e-7,-0.79375 0.7937497,-0.79375 0.7937503,0 0.7937503,0.79375 0.7937503,0.79375 l -10e-8,3.96875 c 0,0 10e-8,0.79375 -0.7937501,0.79375 -0.7937499,0 -0.79375,-0.79375 -0.79375,-0.79375 z"
-       style="fill:#c00000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d="m 8.3342161,287.73875 c 0,0 0.79375,0 0.79375,0.79375 0,0.79375 -0.79375,0.79375 -0.79375,0.79375 h -3.96875 c 0,0 -0.79375,0 -0.79375,-0.79375 0,-0.79375 0.79375,-0.79375 0.79375,-0.79375 z"
+       style="fill:#c00000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:transform-center-x="2.11715"
+       inkscape:transform-center-y="-0.00032506252" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="透明化"
-     style="display:none">
+     style="display:none"
+     sodipodi:insensitive="true">
     <rect
        style="fill:#070000;fill-opacity:1;stroke:none;stroke-width:3.17500019;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect829"

@@ -40,11 +40,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="360.90236"
-     inkscape:cy="200.78939"
+     inkscape:zoom="0.25000001"
+     inkscape:cx="59.635704"
+     inkscape:cy="425.68117"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer7"
      showgrid="true"
      units="px"
      showguides="true"
@@ -258,9 +258,9 @@
          d="M 16.933334,8.4666662 A 8.4666672,8.4666672 0 0 1 8.4816291,16.93332 8.4666672,8.4666672 0 0 1 5.2879793e-5,8.4965899 8.4666672,8.4666672 0 0 1 8.4217817,1.180257e-4 8.4666672,8.4666672 0 0 1 16.933123,8.4068192" />
     </g>
     <g
-       id="g169">
+       id="g4634">
       <g
-         transform="rotate(90,9.5250006,180.97501)"
+         transform="rotate(180,9.5250025,180.97501)"
          id="g129">
         <ellipse
            ry="8.4666624"
@@ -299,7 +299,7 @@
            style="fill:#c00000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       </g>
       <g
-         transform="rotate(90,43.391669,180.97501)"
+         transform="rotate(180,43.391672,180.97501)"
          id="g141">
         <ellipse
            style="fill:#a1a1a1;fill-opacity:1;stroke:none;stroke-width:4.23333216;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -338,7 +338,7 @@
            sodipodi:nodetypes="csccscc" />
       </g>
       <g
-         transform="rotate(90,26.458336,180.97501)"
+         transform="rotate(180,26.458338,180.97501)"
          id="g135">
         <ellipse
            ry="8.4666624"
@@ -377,7 +377,7 @@
            style="fill:#c00000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       </g>
       <g
-         transform="rotate(90,60.325005,180.97501)"
+         transform="rotate(180,60.192713,180.97502)"
          id="g147">
         <ellipse
            style="fill:#a1a1a1;fill-opacity:1;stroke:none;stroke-width:4.23333216;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -424,9 +424,9 @@
      style="display:inline;opacity:0.3"
      transform="translate(0,-63.500003)">
     <g
-       id="g191">
+       id="g4592">
       <g
-         transform="rotate(90,9.5249958,73.025002)"
+         transform="rotate(180,9.524996,73.025002)"
          id="g89">
         <ellipse
            style="fill:#a1a1a1;fill-opacity:1;stroke:none;stroke-width:4.23333216;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -465,7 +465,7 @@
            sodipodi:nodetypes="csccscc" />
       </g>
       <g
-         transform="rotate(90,43.391651,73.025002)"
+         transform="rotate(180,43.391651,73.025002)"
          id="g101">
         <ellipse
            ry="8.4666624"
@@ -504,7 +504,7 @@
            style="fill:#ffc000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       </g>
       <g
-         transform="rotate(90,26.45833,73.025002)"
+         transform="rotate(180,26.45833,73.025002)"
          id="g95">
         <ellipse
            style="fill:#a1a1a1;fill-opacity:1;stroke:none;stroke-width:4.23333216;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -543,7 +543,7 @@
            sodipodi:nodetypes="csccscc" />
       </g>
       <g
-         transform="rotate(90,60.324985,73.025001)"
+         transform="rotate(180,60.324985,73.025002)"
          id="g107">
         <ellipse
            ry="8.4666624"
