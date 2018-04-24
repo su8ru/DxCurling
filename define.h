@@ -24,7 +24,6 @@ int timecnt = 0; //「何秒かに一回」をやるため
 enum Mode {
 	op, game, pause, ed
 };
-
 Mode gamemode = op;	//op, game, pause, ed
 
 int gamecnt = 0; //ゲームの進行状況
@@ -47,8 +46,10 @@ double xBevel = 0, yBevel = 0;
 int sX = 180, sY = 540;
 bool placed = false, moveFlag = false, turnEndFlag = false;
 
+int rank[8] = {};	//stones[i].distance の昇順に stoneId を格納
+
 struct stone {
-	double x, y, vx=0,vy=0;
+	double x, y, vx = 0, vy = 0, distance = 0;
 	bool isYellow, enabled;
 };
 stone stones[8];
@@ -71,6 +72,8 @@ void StopSlowStone();
 void PhysicStone();
 void DistanceFromGoal();
 void DecideRank();
+void DrawRankData();
+void DrawDistanceData();
 bool isMovingAnyStones();
 
 void DrawInfo();
@@ -80,3 +83,4 @@ void DrawShootLineRad();
 double Rad(int);
 void   AddForce(int, double, double);
 double Distance(double, double);
+void swap(int, int);

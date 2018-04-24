@@ -4,25 +4,28 @@
 #include "define.h"
 
 #define PI 3.141592653589793
+#define GoalX 1088
+#define GoalY 360
 
 
-void putStone(int id, double posx, double posy, bool yellow, bool enabled) {
+void putStone(int id, double posx, double posy, double distance, bool yellow, bool enabled) {
 	stones[id].x = posx;
 	stones[id].y = posy;
 	stones[id].vx = 0;
 	stones[id].vy = 0;
+	stones[id].distance = distance;
 	stones[id].isYellow = yellow;
 }
 
 void InitStones() {
-	putStone(0, 36,  156, true,  false);
-	putStone(1, 36,  564, false, false);
-	putStone(2, 100, 156, true,  false);
-	putStone(3, 100, 564, false, false);
-	putStone(4, 164, 156, true,  false);
-	putStone(5, 164, 564, false, false);
-	putStone(6, 228, 156, true,  false);
-	putStone(7, 228, 564, false, false);
+	putStone(0, 36,  156, 0, true,  false);
+	putStone(1, 36,  564, 0, false, false);
+	putStone(2, 100, 156, 0, true,  false);
+	putStone(3, 100, 564, 0, false, false);
+	putStone(4, 164, 156, 0, true,  false);
+	putStone(5, 164, 564, 0, false, false);
+	putStone(6, 228, 156, 0, true,  false);
+	putStone(7, 228, 564, 0, false, false);
 }
 
 
@@ -98,6 +101,10 @@ void Control() {
 	PhysicStone();
 	StopSlowStone();
 	StopOverStone();
+	DistanceFromGoal();
+	DecideRank();
+	DrawRankData();
+	DrawDistanceData();
 }
 
 void DrawStone() {
@@ -131,7 +138,7 @@ void StopSlowStone() {
 void StopOverStone() {
 	for (int i = 0; i < 8; i++) {
 		if (stones[i].x > 1312 || stones[i].y < 98 || stones[i].y > 632) {
-			stones[i].x = 1000 + 1000 * i;
+			stones[i].x = 10000 + 1000 * i;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
 			stones[i].enabled = true;
@@ -170,11 +177,29 @@ void PhysicStone() {
 }
 
 void DistanceFromGoal() {
-
+	for (int i = 0; i < 8; i++) {
+		stones[i].distance = Distance(GoalX - stones[i].x, GoalY - stones[i].y);
+	}
 }
 
 void DecideRank() {
-
+	for (int i = 0; i<8; i++) {
+		rank[i] = i;
+	}
+	while (1) {
+		bool f = false;
+		for (int i = 0; i<7; i++) {
+			if (stones[rank[i]].distance>stones[rank[i + 1]].distance) {
+				int tmp = rank[i];
+				rank[i] = rank[i + 1];
+				rank[i + 1] = tmp;
+				f = true;
+			}
+		}
+		if (!f) {
+			break;
+		}
+	}
 }
 
 bool isMovingAnyStones() {
@@ -191,6 +216,17 @@ bool isMovingAnyStones() {
 
 void DrawInfo() {
 	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "angle:%d\nplaced:%d\nturn:%d\ninput_ok:%d\n", angle, placed ? 1 : 0, gamecnt, waitingForInput ? 1 : 0);
+}
+
+void DrawRankData() {
+	for (int i = 0; i < 8; i++) {
+		DrawFormatStringToHandle(1000, i * 16, 0x000000, Cica16, "%d", rank[i]);
+	}
+}
+void DrawDistanceData() {
+	for (int i = 0; i < 8; i++) {
+		DrawFormatStringToHandle(1048, i * 16, 0x000000, Cica16, "%f", stones[i].distance);
+	}
 }
 
 void DrawMousePos() {
