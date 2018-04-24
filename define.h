@@ -69,6 +69,8 @@ void DrawGame();
 void StopOverStone();
 void StopSlowStone();
 void PhysicStone();
+void DistanceFromGoal();
+void DecideRank();
 bool isMovingAnyStones();
 
 void DrawInfo();

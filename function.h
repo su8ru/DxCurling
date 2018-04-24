@@ -169,6 +169,14 @@ void PhysicStone() {
 	// TODO:衝突の処理はココらへん
 }
 
+void DistanceFromGoal() {
+
+}
+
+void DecideRank() {
+
+}
+
 bool isMovingAnyStones() {
 	for (int i = 0;i < 8;i++) {
 		if (stones[i].vx != 0 || stones[i].vy != 0) {
