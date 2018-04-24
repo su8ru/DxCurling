@@ -8,24 +8,25 @@
 #define GoalY 360
 
 
-void putStone(int id, double posx, double posy, double distance, bool yellow, bool enabled) {
+void putStone(int id, double posx, double posy, double distance, bool yellow) {
 	stones[id].x = posx;
 	stones[id].y = posy;
 	stones[id].vx = 0;
 	stones[id].vy = 0;
 	stones[id].distance = distance;
 	stones[id].isYellow = yellow;
+	stones[id].enabled = false;
 }
 
 void InitStones() {
-	putStone(0, 36,  156, 0, true,  false);
-	putStone(1, 36,  564, 0, false, false);
-	putStone(2, 100, 156, 0, true,  false);
-	putStone(3, 100, 564, 0, false, false);
-	putStone(4, 164, 156, 0, true,  false);
-	putStone(5, 164, 564, 0, false, false);
-	putStone(6, 228, 156, 0, true,  false);
-	putStone(7, 228, 564, 0, false, false);
+	putStone(0, 36,  156, 0, true);
+	putStone(1, 36,  564, 0, false);
+	putStone(2, 100, 156, 0, true);
+	putStone(3, 100, 564, 0, false);
+	putStone(4, 164, 156, 0, true);
+	putStone(5, 164, 564, 0, false);
+	putStone(6, 228, 156, 0, true);
+	putStone(7, 228, 564, 0, false);
 }
 
 
@@ -46,8 +47,11 @@ void Error() {
 void OP() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "おーぷにんぐ");
 	DrawFormatStringToHandle(440, 400, 0x000000, azukiLB24, "SPACEキーを押してスタート");
-	if (key[KEY_INPUT_SPACE] == 1)	gamemode = game;
-
+	if (key[KEY_INPUT_SPACE] == 1) {
+		gamemode = game;
+		gamecnt = 0;
+		InitStones();
+	}
 }
 
 void Pause() {
@@ -61,7 +65,13 @@ void Pause() {
 }
 
 void ED() {
-
+	DrawFormatStringToHandle(100, 100, 0x000000, azukiL32, "終了！！！");
+	DrawFormatStringToHandle(100, 160, 0x000000, azukiL24, "結果は…");
+	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！", score);
+	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが%d点獲得して勝利！！", score);
+	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点獲得して勝利！！", score);
+	DrawFormatStringToHandle(200, 250, 0x000000, azukiL32, "SPACEキーを押してタイトルへ", score);
+	if (key[KEY_INPUT_SPACE] == 1)	gamemode = op;
 }
 
 
@@ -97,14 +107,18 @@ void Control() {
 		stones[gamecnt].vy = power * sin(Rad(angle)) * 1.7;
 		waitingForInput = false;
 	}
+	if (gamecnt >= 8) {
+		gamemode = ed;
+		CalculateRank();
+	}
 
 	PhysicStone();
 	StopSlowStone();
 	StopOverStone();
 	DistanceFromGoal();
 	DecideRank();
-	DrawRankData();
-	DrawDistanceData();
+	//DrawRankData();
+	//DrawDistanceData();
 }
 
 void DrawStone() {
@@ -202,6 +216,26 @@ void DecideRank() {
 	}
 }
 
+void CalculateRank() {
+	if (rank[0] % 2) {	//Redの勝利
+		for (int i = 0; i < 8; i++) {
+			winnerIsYellow = false;
+			if (!rank[i] % 2 && !stones[i].enabled) {
+				score = i - 1;
+				break;
+			}
+		}
+	} else {		//Yellowの勝利
+		for (int i = 0; i < 8; i++) {
+			winnerIsYellow = true;
+			if (rank[i] % 2 && !stones[i].enabled) {
+				score = i - 1;
+				break;
+			}
+		}
+	}
+}
+
 bool isMovingAnyStones() {
 	for (int i = 0;i < 8;i++) {
 		if (stones[i].vx != 0 || stones[i].vy != 0) {
@@ -215,7 +249,7 @@ bool isMovingAnyStones() {
 //Debug
 
 void DrawInfo() {
-	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "angle:%d\nplaced:%d\nturn:%d\ninput_ok:%d\n", angle, placed ? 1 : 0, gamecnt, waitingForInput ? 1 : 0);
+	DrawFormatStringToHandle(0, 20, 0x000000, Cica16, "angle:%d\nplaced:%d\nturn:%d\ninput_ok:%d\nscore:%d", angle, placed ? 1 : 0, gamecnt, waitingForInput ? 1 : 0, score);
 }
 
 void DrawRankData() {

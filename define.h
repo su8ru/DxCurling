@@ -8,9 +8,9 @@ int UpdateKey() {
 	GetHitKeyStateAll(tmpKey); // 全てのキーの入力状態を得る
 	for (int i = 0; i<256; i++) {
 		if (tmpKey[i] != 0) { // i番のキーコードに対応するキーが押されていたら
-			key[i]++;     // 加算
+			key[i]++;	 // 加算
 		}
-		else {              // 押されていなければ
+		else {			  // 押されていなければ
 			key[i] = 0;   // 0にする
 		}
 	}
@@ -47,6 +47,8 @@ int sX = 180, sY = 540;
 bool placed = false, moveFlag = false, turnEndFlag = false;
 
 int rank[8] = {};	//stones[i].distance の昇順に stoneId を格納
+int score = 0;
+bool winnerIsYellow = true;
 
 struct stone {
 	double x, y, vx = 0, vy = 0, distance = 0;
@@ -72,6 +74,7 @@ void StopSlowStone();
 void PhysicStone();
 void DistanceFromGoal();
 void DecideRank();
+void CalculateRank();
 void DrawRankData();
 void DrawDistanceData();
 bool isMovingAnyStones();
