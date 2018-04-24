@@ -6,7 +6,7 @@
 #define PI 3.141592653589793
 
 
-void putStone(int id, double posx, double posy, bool yellow) {
+void putStone(int id, double posx, double posy, bool yellow, bool hidden) {
 	stones[id].x = posx;
 	stones[id].y = posy;
 	stones[id].vx = 0;
@@ -15,16 +15,15 @@ void putStone(int id, double posx, double posy, bool yellow) {
 }
 
 void InitStones() {
-	putStone(0, 36,  156, true);
-	putStone(1, 36,  564, false);
-	putStone(2, 100, 156, true);
-	putStone(3, 100, 564, false);
-	putStone(4, 164, 156, true);
-	putStone(5, 164, 564, false);
-	putStone(6, 228, 156, true);
-	putStone(7, 228, 564, false);
+	putStone(0, 36,  156, true,  false);
+	putStone(1, 36,  564, false, false);
+	putStone(2, 100, 156, true,  false);
+	putStone(3, 100, 564, false, false);
+	putStone(4, 164, 156, true,  false);
+	putStone(5, 164, 564, false, false);
+	putStone(6, 228, 156, true,  false);
+	putStone(7, 228, 564, false, false);
 }
-
 
 //常時
 
@@ -95,13 +94,13 @@ void Control() {
 	}
 	if (waitingForInput && key[KEY_INPUT_Q] == 1 && !placed) {
 		stones[gamecnt].x = 96;
-		stones[gamecnt].y = 240;
+		stones[gamecnt].y = 360;
 		placed = true;
 	}
 	if (waitingForInput && key[KEY_INPUT_E] == 1 && placed) {
 		placed = false;
-		stones[gamecnt].vx = power * sin(Rad(angle));
-		stones[gamecnt].vy = power * cos(Rad(angle));
+		stones[gamecnt].vx = power * cos(Rad(angle)) * 1.7;
+		stones[gamecnt].vy = power * sin(Rad(angle)) * 1.7;
 		waitingForInput = false;
 	}
 
@@ -146,6 +145,7 @@ void StopOverStone() {
 			stones[i].x = 10000 + 10000 * i;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
+			stones[i].hidden = true;
 			nowStonePos = 0;
 		}
 	}
@@ -159,14 +159,13 @@ void PhysicStone() {
 		stones[i].vy *= 0.995;
 	}
 	double k = 0.9;
-	double t, v, vt, vV;
-	for (int i = 0; i < 8; i++) {
+	double t, v, vt, vV;	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (i == j)	continue;
-			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) < 64) {
-				t = atan2(stones[j].y - stones[i].y, stones[j].x - stones[i].x);
-				v = Distance(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vx);
-				vt = atan2(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vx);
+			if (Distance(stones[i].y - stones[j].y, stones[i].x - stones[j].x) < 64) {
+				t = atan2(stones[j].x - stones[i].x, stones[j].y - stones[i].y);
+				v = Distance(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vy);
+				vt = atan2(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vy);
 				vV = v * cos(t - vt);
 
 				//DrawLine(stones[i].x, stones[i].y, stones[i].x + vV * k * cos(t), stones[i].y + vV * k * sin(t), 0xff);
@@ -200,12 +199,8 @@ void DrawMousePos() {
 	DrawFormatStringToHandle(0, 0, 0x000000, Cica16, "X: %d Y: %d", mX, mY);
 }
 
-void DrawShootLine() {
-	DrawLineAA((float)660, (float)100, (float)sX, (float)sY, 0x000000, (float)4);
-}
-
 void DrawShootLineRad() {
-	DrawLineAA((float)660, (float)100, (float)660 + (float)sin(Rad(angle)) * (float)power * 100, (float)100 + (float)cos(Rad(angle)) * (float)power * 100, 0x00ff00, 4);
+	DrawLineAA((float)96, (float)360, (float)126 + (float)cos(Rad(angle)) * (float)power * 100, (float)360 + (float)sin(Rad(angle)) * (float)power * 100, 0x00ff00, 4);
 }
 
 

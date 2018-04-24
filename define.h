@@ -64,7 +64,7 @@ bool placed = false, moveFlag = false, turnEndFlag = false;
 
 struct stone {
 	double x, y, vx=0,vy=0;
-	bool isYellow;
+	bool isYellow, hidden;
 };
 
 stone stones[8];
@@ -105,7 +105,6 @@ bool isMovingAnyStones();
 
 void DrawInfo();
 void DrawMousePos();
-void DrawShootLine();
 void DrawShootLineRad();
 //void MoveStoneD(int);
 
