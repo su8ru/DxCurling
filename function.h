@@ -25,6 +25,7 @@ void InitStones() {
 	putStone(7, 228, 564, false, false);
 }
 
+
 //常時
 
 void DrawBrush() {
@@ -61,17 +62,7 @@ void ED() {
 }
 
 
-void AddForce(int id, double x, double y) {
-	stones[id].vx += x;
-	stones[id].vy += y;
-}
-
-double Distance(double x, double y) {
-	return sqrt(x * x + y * y);
-}
-
 //Game
-
 
 void Control() {
 	if (key[KEY_INPUT_A])		angle--;
@@ -89,8 +80,8 @@ void Control() {
 
 	DrawFormatStringToHandle(0, 96, 0x000000, Cica16, "動いてるstoneはありますか:%d\n", isMovingAnyStones() ? 1 : 0);
 	if (!waitingForInput && !isMovingAnyStones()) {
-		gamecnt++;
-		waitingForInput = true;
+			gamecnt++;
+			waitingForInput = true;
 	}
 	if (waitingForInput && key[KEY_INPUT_Q] == 1 && !placed) {
 		stones[gamecnt].x = 96;
@@ -109,14 +100,14 @@ void Control() {
 	StopOverStone();
 }
 
-
 void DrawStone() {
 	for (int i = 0; i < 8; i++) {
-		if (stones[i].isYellow)	DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_yellow, TRUE);
-		else					DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_red, TRUE);
+		if (!stones[i].enabled) {
+			if (stones[i].isYellow)	DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_yellow, TRUE);
+			else					DrawGraph((int)stones[i].x - 32, (int)stones[i].y - 31, stone_red, TRUE);
+		}
 	}
 }
-
 
 void DrawGame() {
 	DrawGraph(0, 121, sheet, FALSE);
@@ -126,8 +117,6 @@ void DrawGame() {
 	//MoveOverStone();
 
 }
-
-
 
 void StopSlowStone() {
 	for (int i = 0; i < 8; i++) {
@@ -141,8 +130,8 @@ void StopSlowStone() {
 
 void StopOverStone() {
 	for (int i = 0; i < 8; i++) {
-		if (stones[i].y > 1312) {
-			stones[i].x = 10000 + 10000 * i;
+		if (stones[i].x > 1312 || stones[i].y < 98 || stones[i].y > 632) {
+			stones[i].x = 1000 + 1000 * i;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
 			stones[i].enabled = true;
@@ -159,19 +148,20 @@ void PhysicStone() {
 		stones[i].vy *= 0.995;
 	}
 	double k = 0.9;
-	double t, v, vt, vV;	for (int i = 0; i < 8; i++) {
+	double t, v, vt, vV;
+	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			if (i == j)	continue;
-			if (Distance(stones[i].y - stones[j].y, stones[i].x - stones[j].x) < 64) {
-				t = atan2(stones[j].x - stones[i].x, stones[j].y - stones[i].y);
-				v = Distance(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vy);
-				vt = atan2(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vy);
+			if (i == j)	break;
+			if (Distance(stones[i].x - stones[j].x, stones[i].y - stones[j].y) <= 64) {
+				t = atan2(stones[j].y - stones[i].y, stones[j].x - stones[i].x);
+				v = Distance(stones[i].vx - stones[j].vx, stones[i].vy - stones[j].vx);
+				vt = atan2(stones[i].vy - stones[j].vy, stones[i].vx - stones[j].vx);
 				vV = v * cos(t - vt);
 
 				//DrawLine(stones[i].x, stones[i].y, stones[i].x + vV * k * cos(t), stones[i].y + vV * k * sin(t), 0xff);
 				//DrawLine(stones[j].x, stones[j].y, stones[j].x - vV * k * cos(t), stones[j].y - vV * k * sin(t), 0xff);
 
-				AddForce(j, vV * k * cos(t), vV * k * sin(t));
+				AddForce(j,  vV * k * cos(t),  vV * k * sin(t));
 				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
 			}
 		}
@@ -204,6 +194,17 @@ void DrawShootLineRad() {
 }
 
 
+//calculation
+
 double Rad(int deg) {
 	return (double)deg * PI / 180;
+}
+
+void AddForce(int id, double x, double y) {
+	stones[id].vx += x;
+	stones[id].vy += y;
+}
+
+double Distance(double x, double y) {
+	return sqrt(x * x + y * y);
 }
