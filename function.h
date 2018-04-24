@@ -6,7 +6,7 @@
 #define PI 3.141592653589793
 
 
-void putStone(int id, double posx, double posy, bool yellow, bool hidden) {
+void putStone(int id, double posx, double posy, bool yellow, bool enabled) {
 	stones[id].x = posx;
 	stones[id].y = posy;
 	stones[id].vx = 0;
@@ -145,7 +145,7 @@ void StopOverStone() {
 			stones[i].x = 10000 + 10000 * i;
 			stones[i].vx = 0;
 			stones[i].vy = 0;
-			stones[i].hidden = true;
+			stones[i].enabled = true;
 			nowStonePos = 0;
 		}
 	}

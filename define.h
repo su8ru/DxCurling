@@ -64,7 +64,7 @@ bool placed = false, moveFlag = false, turnEndFlag = false;
 
 struct stone {
 	double x, y, vx=0,vy=0;
-	bool isYellow, hidden;
+	bool isYellow, enabled;
 };
 
 stone stones[8];
