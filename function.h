@@ -78,11 +78,11 @@ void ED() {
 //Game
 
 void Control() {
-	if (key[KEY_INPUT_A])		angle--;
-	else if (key[KEY_INPUT_D])	angle++;
+	if (key[KEY_INPUT_W])		angle--;
+	else if (key[KEY_INPUT_S])	angle++;
 
-	else if (key[KEY_INPUT_S] == 1) power--;
-	else if (key[KEY_INPUT_W] == 1) power++;
+	else if (key[KEY_INPUT_A] == 1) power--;
+	else if (key[KEY_INPUT_D] == 1) power++;
 
 	if (angle<-30)angle = -30;
 	if (angle>30)angle = 30;
