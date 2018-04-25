@@ -91,7 +91,7 @@ void Control() {
 
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
 
-	DrawFormatStringToHandle(0, 96, 0x000000, Cica16, "動いてるstoneはありますか:%d\n", isMovingAnyStones() ? 1 : 0);
+	//DrawFormatStringToHandle(0, 96, 0x000000, Cica16, "動いてるstoneはありますか:%d\n", isMovingAnyStones() ? 1 : 0);
 	if (!waitingForInput && !isMovingAnyStones()) {
 			gamecnt++;
 			waitingForInput = true;
