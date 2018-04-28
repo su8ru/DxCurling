@@ -60,8 +60,8 @@ stone stones[8];
 void InitStones();
 
 void DrawBrush();
-
 void Error();
+
 void OP();
 void Pause();
 void ED();
@@ -86,4 +86,3 @@ void DrawShootLineRad();
 double Rad(int);
 void   AddForce(int, double, double);
 double Distance(double, double);
-void swap(int, int);

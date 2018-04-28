@@ -27,6 +27,7 @@ void InitStones() {
 	putStone(5, 164, 564, 0, false);
 	putStone(6, 228, 156, 0, true);
 	putStone(7, 228, 564, 0, false);
+	score = 0;
 }
 
 
@@ -42,7 +43,7 @@ void Error() {
 }
 
 
-//OP,Pause,ED
+//OP,Pause,ED,TLE
 
 void OP() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "おーぷにんぐ");
@@ -67,27 +68,32 @@ void Pause() {
 void ED() {
 	DrawFormatStringToHandle(100, 100, 0x000000, azukiL32, "終了！！！");
 	DrawFormatStringToHandle(100, 160, 0x000000, azukiL24, "結果は…");
-	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！", score);
-	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが%d点獲得して勝利！！", score);
-	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点獲得して勝利！！", score);
-	DrawFormatStringToHandle(200, 250, 0x000000, azukiL32, "SPACEキーを押してタイトルへ", score);
-	if (key[KEY_INPUT_SPACE] == 1)	gamemode = op;
+	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！");
+	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが勝利！！");
+	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが勝利！！");
+	DrawFormatStringToHandle(200, 250, 0x000000, azukiL32, "お疲れ様でした！また遊んでくださいね♪\nSPACEキーを押して終了");
+
+	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {
+		gamemode = op;
+		gamecnt = 0;
+		InitStones();
+	}
 }
 
 
 //Game
 
 void Control() {
-	if (key[KEY_INPUT_W])		angle--;
+	if		(key[KEY_INPUT_W])		angle--;
 	else if (key[KEY_INPUT_S])	angle++;
 
 	else if (key[KEY_INPUT_A] == 1) power--;
 	else if (key[KEY_INPUT_D] == 1) power++;
 
-	if (angle<-30)angle = -30;
-	if (angle>30)angle = 30;
-	if (power>5)power = 5;
-	if (power<1)power = 1;
+	if (angle < -30) angle = -30;
+	if (angle > 30)  angle = 30;
+	if (power > 5)   power = 5;
+	if (power < 1)   power = 1;
 
 	if (key[KEY_INPUT_ESCAPE] == 1)	gamemode = pause;
 
@@ -109,6 +115,7 @@ void Control() {
 	}
 	if (gamecnt >= 8) {
 		gamemode = ed;
+		DecideRank();
 		CalculateRank();
 	}
 
@@ -117,8 +124,8 @@ void Control() {
 	StopOverStone();
 	DistanceFromGoal();
 	DecideRank();
-	//DrawRankData();
-	//DrawDistanceData();
+	DrawRankData();
+	DrawDistanceData();
 }
 
 void DrawStone() {
@@ -196,6 +203,7 @@ void DistanceFromGoal() {
 	}
 }
 
+
 void DecideRank() {
 	for (int i = 0; i<8; i++) {
 		rank[i] = i;
@@ -218,17 +226,17 @@ void DecideRank() {
 
 void CalculateRank() {
 	if (rank[0] % 2) {	//Redの勝利
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 4; i++) {
 			winnerIsYellow = false;
-			if (!rank[i] % 2 && !stones[i].enabled) {
+			if (rank[i] % 2 == 0 && !stones[i].enabled) {
 				score = i - 1;
 				break;
 			}
 		}
 	} else {		//Yellowの勝利
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 4; i++) {
 			winnerIsYellow = true;
-			if (rank[i] % 2 && !stones[i].enabled) {
+			if (rank[i] % 2 == 1 && !stones[i].enabled) {
 				score = i - 1;
 				break;
 			}

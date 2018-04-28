@@ -78,10 +78,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case ed:
 			ED();
 			break;
+
 		default:
 			Error();
 			break;
 		}
+		if (key[KEY_INPUT_SPACE] && gamemode == ed)	break;
 		DrawBrush();
 		ScreenFlip();
 	}
