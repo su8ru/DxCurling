@@ -2,10 +2,16 @@
 #include <DxLib.h>
 #include <math.h>
 #include "define.h"
+#include "DrawStringEx.h"
 
 #define PI 3.141592653589793
 #define GoalX 1088
 #define GoalY 360
+
+#define green	6fd20c
+#define yellow	b8b84e
+#define blue	0859a1
+#define skyblue	56c4ca
 
 
 void putStone(int id, double posx, double posy, double distance, bool yellow) {
@@ -143,20 +149,20 @@ void ControlDescription() {
 
 	switch (gamemode) {
 	case op:
-		DrawFormatStringToHandle(9,   609, 0xcbcbcb, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
-		DrawFormatStringToHandle(269, 609, 0xcbcbcb, Cica16, "> SPACE でゲームを始める");
+		DrawFormatStringToHandle	(9,   610, 0xcbcbcb, Cica16, "> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜Let's play!\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒");
+		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]SPACE[-] でゲームを始める");
 		break;
 	case game:
-		DrawFormatStringToHandle(9,   609, 0xcbcbcb, Cica16, "> angle: %d°\n> power: %d\n> speed: %lf", angle, (int)power, Distance(stones[gamecnt].vx, stones[gamecnt].vy));
-		DrawFormatStringToHandle(269, 609, 0xcbcbcb, Cica16, "> Q でストーンを設置します\n> W･S で打つ方向（angle）を決めます\n> A･D で打つ強さ（power）を決めます\n> E でストーンを発射します\n> SPACE でポーズ");
+		DrawFormatStringToHandleEx	(9,   610, 0xcbcbcb, Cica16, "> [56c4ca]angle[-]: %d°\n> [56c4ca]power[-]: %d\n> [56c4ca]turn[-]: %d\n\n> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜ぼくの居場所…\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒", angle, (int)power, gamecnt + 1);
+		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]Q[-]   でストーンを設置します\n> [b8b84e]W･S[-] で打つ方向（[56c4ca]angle[-]）を決めます\n> [b8b84e]A･D[-] で打つ強さ（[56c4ca]power[-]）を決めます\n> [b8b84e]E[-]   でストーンを発射します\n> [b8b84e]ESC[-] でポーズ");
 		break;
 	case pause:
-		DrawFormatStringToHandle(9,   609, 0xcbcbcb, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
-		DrawFormatStringToHandle(269, 609, 0xcbcbcb, Cica16, "> SPACE でゲームに戻る\n> ESC でゲームを終了");
+		DrawFormatStringToHandle	(9,   610, 0xcbcbcb, Cica16, "> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜やめないで…\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒");
+		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]SPACE[-] でゲームに戻る\n> [b8b84e]ESC[-]   でゲームを終了");
 		break;
 	case ed:
-		DrawFormatStringToHandle(9,   609, 0xcbcbcb, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
-		DrawFormatStringToHandle(269, 609, 0xcbcbcb, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACE でゲームを終了\n\n制作：subaru2003\nSpecial Thanks：ibuki2003/QCFium");
+		DrawFormatStringToHandle	(9,   610, 0xcbcbcb, Cica16, "> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜Thank you!\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒");
+		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> [b8b84e]SPACE[-] でゲームを終了\n\n> 制作: [6fd20c]subaru2003[-]\n> Special Thanks: [6fd20c]ibuki2003[-], [6fd20c]QCFium[-]");
 		break;
 	}
 }
