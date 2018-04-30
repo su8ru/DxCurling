@@ -85,7 +85,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Error();
 			break;
 		}
-		if (key[KEY_INPUT_SPACE] && gamemode == ed)	break;
+		if (gameExit)	break;
 		ControlDescription();
 		DrawBrush();
 		ScreenFlip();

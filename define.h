@@ -56,6 +56,8 @@ struct stone {
 };
 stone stones[8];
 
+bool gameExit = false;
+
 
 void InitStones();
 
