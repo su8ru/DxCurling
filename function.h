@@ -143,6 +143,7 @@ void ControlDescription() {
 
 	switch (gamemode) {
 	case op:
+		DrawFormatStringToHandle(9,   609, 0xffffff, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
 		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> SPACE でゲームを始める");
 		break;
 	case game:
@@ -150,10 +151,12 @@ void ControlDescription() {
 		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> Q でストーンを設置します\n> W･S で打つ方向（angle）を決めます\n> A･D で打つ強さ（power）を決めます\n> E でストーンを発射します\n> SPACE でポーズ");
 		break;
 	case pause:
+		DrawFormatStringToHandle(9,   609, 0xffffff, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
 		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> SPACE でゲームに戻る\n> ESC でゲームを終了");
 		break;
 	case ed:
-		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACE でゲームを終了");
+		DrawFormatStringToHandle(9,   609, 0xffffff, Cica16, "〃∩ ∧＿∧\n⊂⌒(   ･ω･)\n  ＼_っ⌒/⌒c\n      ⌒ ⌒");
+		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACE でゲームを終了\n\n制作：subaru2003\nSpecial Thanks：ibuki2003/QCFium");
 		break;
 	}
 }
