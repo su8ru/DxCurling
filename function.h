@@ -70,8 +70,9 @@ void ED() {
 	DrawFormatStringToHandle(100, 160, 0x000000, azukiL24, "結果は…");
 	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！");
 	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが%d点で勝利！！", score);
-	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点で勝利！！");
+	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点で勝利！！", score);
 	DrawFormatStringToHandle(200, 250, 0x000000, azukiL32, "お疲れ様でした！また遊んでくださいね♪\nSPACEキーを押して終了");
+	
 
 	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {
 		gamemode = op;
@@ -116,16 +117,13 @@ void Control() {
 	if (gamecnt >= 8) {
 		gamemode = ed;
 		DecideRank();
+		CalculateRank();
 	}
 
 	PhysicStone();
 	StopSlowStone();
 	StopOverStone();
 	DistanceFromGoal();
-	DecideRank();
-	CalculateRank();
-	DrawRankData();
-	DrawDistanceData();
 }
 
 void DrawStone() {
@@ -222,6 +220,7 @@ void DecideRank() {
 			break;
 		}
 	}
+
 }
 
 void CalculateRank() {
@@ -229,19 +228,21 @@ void CalculateRank() {
 	if (!stones[rank[0]].isYellow) {	//Redの勝利
 		for (int i = 0; i < 5; i++) {
 			winnerIsYellow = false;
-			if (stones[i].isYellow || !stones[i].enabled) {
+			if (stones[rank[i]].isYellow || stones[rank[i]].enabled) {
 				score = i;
-				break;
+				return;
 			}
 		}
+		while (1);
 	} else {		//Yellowの勝利
 		for (int i = 0; i < 5; i++) {
 			winnerIsYellow = true;
-			if (!stones[i].isYellow || !stones[i].enabled) {
+			if (!stones[rank[i]].isYellow || stones[rank[i]].enabled) {
 				score = i;
-				break;
+				return;
 			}
 		}
+		while (1);
 	}
 }
 
@@ -262,14 +263,15 @@ void DrawInfo() {
 }
 
 void DrawRankData() {
+	/*
 	for (int i = 0; i < 8; i++) {
 		DrawFormatStringToHandle(1000, i * 16, 0x000000, Cica16, "%d", rank[i]);
-	}
+	}*/
 }
 void DrawDistanceData() {
-	for (int i = 0; i < 8; i++) {
-		DrawFormatStringToHandle(1048, i * 16, 0x000000, Cica16, "%f", stones[i].distance);
-	}
+	/*for (int i = 0; i < 8; i++) {
+		DrawFormatStringToHandle(1048, i * 16, 0x000000, Cica16, "%f", stones[rank[i]].distance);
+	}*/
 }
 
 void DrawMousePos() {
