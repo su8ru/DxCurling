@@ -47,7 +47,6 @@ void Error() {
 
 void OP() {
 	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "おーぷにんぐ");
-	DrawFormatStringToHandle(440, 400, 0x000000, azukiLB24, "SPACEキーを押してスタート");
 	if (key[KEY_INPUT_SPACE] == 1) {
 		gamemode = game;
 		gamecnt = 0;
@@ -71,8 +70,6 @@ void ED() {
 	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！");
 	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが%d点で勝利！！", score);
 	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点で勝利！！", score);
-	DrawFormatStringToHandle(200, 250, 0x000000, azukiL32, "お疲れ様でした！また遊んでくださいね♪\nSPACEキーを押して終了");
-	
 
 	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {
 		gamemode = op;
@@ -143,6 +140,27 @@ void DrawGame() {
 	//MoveOverStone();
 
 }
+
+void ControlDescription() {
+	DrawGraph(0, 601, infoFrame, false);
+
+	switch (gamemode) {
+	case op:
+		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> SPACE でゲームを始める");
+		break;
+	case game:
+		DrawFormatStringToHandle(9,   609, 0xffffff, Cica16, "> angle: %d°\n> power: %d\n> speed: %lf", angle, (int)power, Distance(stones[gamecnt].vx, stones[gamecnt].vy));
+		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> Q でストーンを設置します\n> W･S で打つ方向（angle）を決めます\n> A･D で打つ強さ（power）を決めます\n> E でストーンを発射します");
+		break;
+	case pause:
+		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> SPACE でゲームに戻る");
+		break;
+	case ed:
+		DrawFormatStringToHandle(269, 609, 0x000000, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACEキーを押して終了");
+		break;
+	}
+}
+
 
 void StopSlowStone() {
 	for (int i = 0; i < 8; i++) {

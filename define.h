@@ -29,7 +29,7 @@ Mode gamemode = op;	//op, game, pause, ed
 int gamecnt = 0; //ゲームの進行状況
 
 int azukiL32, azukiL24, azukiL16, azukiLB32, azukiLB24, azukiLB16, Cica32, Cica24, Cica16; //FontHandle
-int stone_red, stone_yellow, brush, sheet; //GraphHandle
+int stone_red, stone_yellow, brush, sheet, infoFrame; //GraphHandle
 
 int mX = 0, mY = 0;		//mousePos
 
@@ -69,6 +69,7 @@ void ED();
 void Control();
 void DrawStone();
 void DrawGame();
+void ControlDescription();
 void StopOverStone();
 void StopSlowStone();
 void PhysicStone();
