@@ -62,11 +62,11 @@ void Pause() {
 }
 
 void ED() {
-	DrawFormatStringToHandle(100, 100, 0x000000, azukiL32, "終了！！！");
-	DrawFormatStringToHandle(100, 160, 0x000000, azukiL24, "結果は…");
-	if (!score)					DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "同点でした！！");
-	else if (winnerIsYellow)	DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "黄色チームが%d点で勝利！！", score);
-	else						DrawFormatStringToHandle(100, 190, 0x000000, azukiL32, "赤チームが%d点で勝利！！", score);
+	DrawFormatStringToHandle(480, 300, 0x000000, azukiL32, "終了！！！");
+	DrawFormatStringToHandle(480, 360, 0x000000, azukiL24, "結果は…");
+	if (!score)					DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "同点でした！！");
+	else if (winnerIsYellow)	DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "黄色チームが%d点で勝利！！", score);
+	else						DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "赤チームが%d点で勝利！！", score);
 	if (key[KEY_INPUT_SPACE])	gameExit = true;
 
 	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {
