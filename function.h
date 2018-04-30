@@ -189,6 +189,27 @@ void PhysicStone() {
 
 				AddForce(j,  vV * k * cos(t),  vV * k * sin(t));
 				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
+				
+				// 磁石現象/吹っ飛び防止
+				if (stones[i].x <= stones[j].x && stones[i].vx >= stones[j].vx)
+				{ // もしiの方が左なのにも関わらずiの方が右方向に早かったら
+					stones[j].vx += stones[i].vx * k;
+					stones[i].vx *= (1 - k);
+				}
+				if (stones[i].x >= stones[j].x && stones[i].vx <= stones[j].vx)
+				{ // もしiの方が右なのにも関わらずjの方が右方向に早かったら
+					stones[i].vx += stones[j].vx * k;
+					stones[j].vx *= (1 - k);
+				}
+				// 同じことをyに対しても...
+				if (stones[i].y <= stones[j].y && stones[i].vy >= stones[j].vy) {
+					stones[j].vy += stones[i].vy * k;
+					stones[i].vy *= (1 - k);
+				}
+				if (stones[i].y >= stones[j].y && stones[i].vy <= stones[j].vy) {
+					stones[i].vy += stones[j].vy * k;
+					stones[j].vy *= (1 - k);
+				}
 			}
 		}
 	}
