@@ -153,7 +153,7 @@ void ControlDescription() {
 		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> SPACE でゲームに戻る\n> ESC でゲームを終了");
 		break;
 	case ed:
-		DrawFormatStringToHandle(269, 609, 0x000000, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACE でゲームを終了");
+		DrawFormatStringToHandle(269, 609, 0xffffff, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> SPACE でゲームを終了");
 		break;
 	}
 }
