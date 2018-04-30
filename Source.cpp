@@ -76,6 +76,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case ed:
+			
 			ED();
 			break;
 
