@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		sheet = LoadGraph("./pic/sheet.png");
 		infoFrame = LoadGraph("./pic/infoFrame.png");
 	}
-	SetMouseDispFlag(FALSE);
+	SetMouseDispFlag(TRUE);
 	SetDrawScreen(DX_SCREEN_BACK);
 	InitStones();
 	gamecnt = 0;
@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//ここに書く
 		GetMousePoint(&mX, &mY);
 		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE); //白背景
-		DrawMousePos();
+		//DrawMousePos();
 		switch (gamemode) {
 		case op:
 			OP();
@@ -87,7 +87,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		if (gameExit)	break;
 		ControlDescription();
-		DrawBrush();
+		//DrawBrush();
 		ScreenFlip();
 	}
 	DxLib_End();
