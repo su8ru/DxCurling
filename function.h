@@ -8,11 +8,6 @@
 #define GoalX 1088
 #define GoalY 360
 
-#define green	6fd20c
-#define yellow	b8b84e
-#define blue	0859a1
-#define skyblue	56c4ca
-
 
 void putStone(int id, double posx, double posy, double distance, bool yellow) {
 	stones[id].x = posx;
