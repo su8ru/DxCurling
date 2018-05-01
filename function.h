@@ -47,7 +47,7 @@ void Error() {
 //OP,Pause,ED,TLE
 
 void OP() {
-	DrawFormatStringToHandle(544, 344, 0x000000, azukiLB32, "たいとる");
+	DrawFormatStringToHandle(450, 320, 0x000000, azukiLB32, "DxCurling ～展示版～");
 	if (key[KEY_INPUT_SPACE] == 1) {
 		gamemode = game;
 		gamecnt = 0;
@@ -136,7 +136,7 @@ void DrawGame() {
 	//MoveStoneD();
 	DrawStone();
 	//MoveOverStone();
-
+	DrawBox(0, 0, 1280, 121, 0xffffff, TRUE);
 }
 
 void ControlDescription() {
