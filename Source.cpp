@@ -11,14 +11,6 @@
 #include "function.h"
 #include "resource.h"
 
-#define font1 "あずきフォントL"
-#define font2 "あずきフォントLB"
-#define font3 "Cica"
-
-//#define font1 "MyricaM M"
-//#define font2 "MyricaM M"
-//#define font3 "MyricaM M"
-
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetWindowText("DxCurling");
@@ -29,15 +21,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//CreateFontToHandle
 	{
 		
-		azukiL32 = CreateFontToHandle(font1, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiL24 = CreateFontToHandle(font1, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiL16 = CreateFontToHandle(font1, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB32 = CreateFontToHandle(font2, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB24 = CreateFontToHandle(font2, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		azukiLB16 = CreateFontToHandle(font2, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica32 = CreateFontToHandle(font3, 32, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica24 = CreateFontToHandle(font3, 24, -1, DX_FONTTYPE_ANTIALIASING_4X4);
-		Cica16 = CreateFontToHandle(font3, 16, -1, DX_FONTTYPE_ANTIALIASING_4X4);
+		azukiL32  = LoadFontDataToHandle("./fonts/azukiL32.dft", 0);
+		azukiL24  = LoadFontDataToHandle("./fonts/azukiL24.dft", 0);
+		azukiLB32 = LoadFontDataToHandle("./fonts/azukiLB32.dft", 0);
+		Cica32    = LoadFontDataToHandle("./fonts/Cica32.dft", 0);
+		Cica16    = LoadFontDataToHandle("./fonts/Cica16.dft", 0);
 	}
 	//LoadGraph
 	{
