@@ -148,7 +148,7 @@ void ControlDescription() {
 		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]SPACE[-] でゲームを始める");
 		break;
 	case game:
-		DrawFormatStringToHandleEx	(9,   610, 0xcbcbcb, Cica16, "> [56c4ca]angle[-]: %d°\n> [56c4ca]power[-]: %d\n> [56c4ca]turn[-]: %d\n\n> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜ぼくの居場所…\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒", angle, (int)power, gamecnt + 1);
+		DrawFormatStringToHandleEx	(9,   610, 0xcbcbcb, Cica16, "> [56c4ca]angle[-]: %d°\n> [56c4ca]power[-]: %d\n> [56c4ca]turn[-]:  %d\n\n> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜ぼくの居場所…\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒", angle, (int)power, gamecnt + 1);
 		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]Q[-]   でストーンを設置します\n> [b8b84e]W･S[-] で打つ方向（[56c4ca]angle[-]）を決めます\n> [b8b84e]A･D[-] で打つ強さ（[56c4ca]power[-]）を決めます\n> [b8b84e]E[-]   でストーンを発射します\n> [b8b84e]ESC[-] でポーズ");
 		break;
 	case pause:
