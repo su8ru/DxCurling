@@ -47,7 +47,7 @@ void Error() {
 //OP,Pause,ED,TLE
 
 void OP() {
-	DrawFormatStringToHandle(450, 320, 0x000000, azukiLB32, "DxCurling ～展示版～");
+	DrawFormatStringToHandle(569, 320, 0x000000, azukiLB32, "DxCurling");
 	if (key[KEY_INPUT_SPACE] == 1) {
 		gamemode = game;
 		gamecnt = 0;
