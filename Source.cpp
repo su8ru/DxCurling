@@ -77,7 +77,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (gameExit)	break;
 		ControlDescription();
 		//DrawBrush();
-		DrawMousePos();
+		//DrawMousePos();
 		ScreenFlip();
 	}
 	DxLib_End();
