@@ -5,9 +5,9 @@
 
 ÅVÅø Å»ÅQÅ»\nÅºÅ‹(   •É÷•)\n  Å__Ç¡Å‹/Å‹c\n      Å‹ Å‹
 
-brack:   2d2e28
-White:   cbcbcb
-Green:   6fd20c
-blue:    0859a1
-SkyBlue: 56c4ca
-yellow:	 b8b84e
+brack:   0x2d2e28
+White:   0xcbcbcb
+Green:   0x6fd20c
+blue:    0x0859a1
+SkyBlue: 0x56c4ca
+yellow:	 0xb8b84e
