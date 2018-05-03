@@ -145,7 +145,7 @@ void ControlDescription() {
 	switch (gamemode) {
 	case op:
 		DrawFormatStringToHandle	(9,   610, 0xcbcbcb, Cica16, "> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜Let's play!\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒");
-		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]SPACE[-] でゲームを始める");
+		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> [b8b84e]SPACE[-] でゲームを始める\n\n\n\n> [56c4ca]DxCurling 配布版Ver2.0");
 		break;
 	case game:
 		DrawFormatStringToHandleEx	(9,   610, 0xcbcbcb, Cica16, "> [56c4ca]angle[-]: %d°\n> [56c4ca]power[-]: %d\n> [56c4ca]turn[-]:  %d\n\n> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜ぼくの居場所…\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒", angle, (int)power, gamecnt + 1);
