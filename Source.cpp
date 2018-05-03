@@ -13,7 +13,7 @@
 
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-	SetWindowText("DxCurling");
+	SetWindowText("DxCurling 配布版Ver2.0");
 	SetOutApplicationLogValidFlag(FALSE);
 	ChangeWindowMode(TRUE);
 	SetGraphMode(1280, 720, 32);
