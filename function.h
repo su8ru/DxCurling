@@ -67,6 +67,7 @@ void ED() {
 	if (!score)					DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "同点でした！！");
 	else if (winnerIsYellow)	DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "黄色チームが%d点で勝利！！", score);
 	else						DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "赤チームが%d点で勝利！！", score);
+	DrawGraph(750, 290, distAd, FALSE);
 	if (key[KEY_INPUT_SPACE])	gameExit = true;
 
 	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {

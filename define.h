@@ -29,7 +29,7 @@ Mode gamemode = op;	//op, game, pause, ed
 int gamecnt = 0; //ゲームの進行状況
 
 int azukiL32, azukiL24, azukiLB32, azukiLB24, Cica32, Cica16; //FontHandle
-int stone_red, stone_yellow, brush, sheet, infoFrame; //GraphHandle
+int stone_red, stone_yellow, brush, sheet, infoFrame, distAd; //GraphHandle
 
 int mX = 0, mY = 0;		//mousePos
 
