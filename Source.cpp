@@ -20,9 +20,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	DxLib_Init();
 	//CreateFontToHandle
 	{
-		
+
 		azukiL32  = LoadFontDataToHandle("./fonts/azukiL32.dft", 0);
 		azukiL24  = LoadFontDataToHandle("./fonts/azukiL24.dft", 0);
+		azukiLB24 = LoadFontDataToHandle("./fonts/azukiLB24.dft", 0);
 		azukiLB32 = LoadFontDataToHandle("./fonts/azukiLB32.dft", 0);
 		Cica32    = LoadFontDataToHandle("./fonts/Cica32.dft", 0);
 		Cica16    = LoadFontDataToHandle("./fonts/Cica16.dft", 0);
@@ -56,7 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DrawGame();
 			//DrawInfo();
 			Control();
-			
+
 			cnt++;
 			break;
 
@@ -65,7 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case ed:
-			
+
 			ED();
 			break;
 

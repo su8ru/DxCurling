@@ -62,11 +62,11 @@ void Pause() {
 }
 
 void ED() {
-	DrawFormatStringToHandle(480, 300, 0x000000, azukiL32, "終了！！！");
-	DrawFormatStringToHandle(480, 360, 0x000000, azukiL24, "結果は…");
-	if (!score)					DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "同点でした！！");
-	else if (winnerIsYellow)	DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "黄色チームが%d点で勝利！！", score);
-	else						DrawFormatStringToHandle(480, 390, 0x000000, azukiL32, "赤チームが%d点で勝利！！", score);
+	DrawFormatStringToHandle(480, 300, 0x000000, azukiLB32, "終了！！！");
+	DrawFormatStringToHandle(480, 360, 0x000000, azukiLB24, "結果は…");
+	if (!score)					DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "同点でした！！");
+	else if (winnerIsYellow)	DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "黄色チームが%d点で勝利！！", score);
+	else						DrawFormatStringToHandle(480, 390, 0x000000, azukiLB32, "赤チームが%d点で勝利！！", score);
 	if (key[KEY_INPUT_SPACE])	gameExit = true;
 
 	if (key[KEY_INPUT_D] && key[KEY_INPUT_R]) {
@@ -158,6 +158,7 @@ void ControlDescription() {
 	case ed:
 		DrawFormatStringToHandle	(9,   610, 0xcbcbcb, Cica16, "> 〃∩ ∧＿∧\n> ⊂⌒(   ･ω･) ＜Thank you!\n>   ＼_っ⌒/⌒c\n>       ⌒ ⌒");
 		DrawFormatStringToHandleEx	(269, 610, 0xcbcbcb, Cica16, "> お疲れ様でした！また遊んでくださいね♪\n> [b8b84e]SPACE[-] でゲームを終了\n\n> 制作: [6fd20c]subaru2003[-]\n> Special Thanks: [6fd20c]ibuki2003[-], [6fd20c]QCFium[-]");
+		DrawFormatStringToHandleEx	(749, 610, 0xcbcbcb, Cica16, "使用フォント: \n・[b8b84e]あずきフォント [56c4ca]http://azukifont.com/ \n[-]・[b8b84e]Cica-Regular   [56c4ca]https://github.com/miiton/Cica/");
 		break;
 	}
 }
@@ -208,7 +209,7 @@ void PhysicStone() {
 
 				AddForce(j,  vV * k * cos(t),  vV * k * sin(t));
 				AddForce(i, -vV * k * cos(t), -vV * k * sin(t));
-				
+
 				// 磁石現象/吹っ飛び防止
 				if (stones[i].x <= stones[j].x && stones[i].vx >= stones[j].vx)
 				{ // もしiの方が左なのにも関わらずiの方が右方向に早かったら
